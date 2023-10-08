@@ -1,0 +1,106 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+    font-size: 100%;
+}
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* background-color: aquamarine; Set the background color to aquamarine */
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 10px;
+    background-color: #80cc28;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 100;
+}
+.logo-box{
+    padding: 0px 30px;
+}
+
+.logo{
+    text-decoration: none;
+    color: white;
+}
+
+.searchBar{
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 5px 30px 5px 30px;
+}
+
+.searchBar input{
+    background: transparent;
+    border: none;
+    outline: none;
+    /* text-align: center; */
+}
+
+.navbar{
+    padding: 0 30px;
+}
+.navbar button {
+    border-radius: 10px;
+    border: none;
+    padding: 5px;
+    text-align: center;
+}
+
+.navbar .login-header{
+    background-color: #80cc28;
+    color: white;
+    padding: 5px 15px;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.navbar .login-header:hover{
+    background-color: #fff;
+    color:#80cc28;
+}
+
+.navbar .register-header{
+    padding: 5px 15px;
+    color: #80cc28;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.navbar .register-header:hover{
+    background-color: #80cc28;
+    color: white;
+}
+
+
+
+
+
+footer {
+    background-color: #80cc28;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    position: fixed; /* Fix the footer to the bottom */
+    bottom: 0; /* Position it at the bottom of the viewport */
+}
+
+footer p{
+    color: white    ;
+}

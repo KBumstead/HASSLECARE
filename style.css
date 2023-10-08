@@ -1,0 +1,127 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header{
+    background-color: #80cc28;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10%;
+
+
+}
+
+.logo{
+    text-decoration: none;
+    color: white;
+}
+
+.searchBar{
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 5px 30px 5px 30px;
+}
+
+.searchBar input{
+    background: transparent;
+    border: none;
+    text-align: center;
+}
+
+.navbar button {
+    border-radius: 10px;
+    border: none;
+    padding: 5px;
+    text-align: center;
+}
+
+.navbar a{
+    text-decoration: none;
+}
+
+.navbar button .login{
+    color:  white;
+}
+
+.navbar button .register{
+    color: #80cc28;
+}
+
+.navbar button{
+    background-color: #80cc28;
+}
+
+.navbar .register_box{
+    background-color: white;
+    padding: 5px 25px;
+}
+
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*height: 100vh;*/ 
+    margin: 100px;
+    gap: 20px;
+    flex: 1;
+}
+
+.start_for_free_box{
+    background-color: #80cc28;
+    border: none;
+    border-radius: 5px;
+    padding: 7px;
+}
+.start_for_free_box a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.registerBusiness_box{
+    border: solid  #80cc28;
+    padding: 7px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.registerBusiness_box a{
+    text-decoration: none;
+    color:  #80cc28;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+footer{
+    background-color: #80cc28;
+    padding: 20px;
+    text-align: center;
+}
+
+footer p{
+    color: white    ;
+}
+
+
