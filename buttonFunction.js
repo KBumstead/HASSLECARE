@@ -1,3 +1,4 @@
+document.getElementById('logo-header').setAttribute("href", "/")
 
 document.getElementById('login-header').addEventListener('click', function() {
     // Navigate to another HTML page
