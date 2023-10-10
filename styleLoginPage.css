@@ -1,10 +1,12 @@
-*{
+* {
     padding: 0;
     margin: 0;
-    font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif;
     font-size: 100%;
 }
-body, html {
+
+body,
+html {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -31,31 +33,33 @@ header {
     align-items: center;
     z-index: 100;
 }
-.logo-box{
+
+.logo-box {
     padding: 0px 30px;
 }
 
-.logo{
+.logo {
     text-decoration: none;
     color: white;
 }
 
-.searchBar{
+.searchBar {
     background-color: #fff;
     border-radius: 30px;
     padding: 5px 30px 5px 30px;
 }
 
-.searchBar input{
+.searchBar input {
     background: transparent;
     border: none;
     outline: none;
     /* text-align: center; */
 }
 
-.navbar{
+.navbar {
     padding: 0 30px;
 }
+
 .navbar button {
     border-radius: 10px;
     border: none;
@@ -63,7 +67,7 @@ header {
     text-align: center;
 }
 
-.navbar .login-header{
+.navbar .login-header {
     background-color: #80cc28;
     color: white;
     padding: 5px 15px;
@@ -71,25 +75,25 @@ header {
     transition: .5s;
 }
 
-.navbar .login-header:hover{
+.navbar .login-header:hover {
     background-color: #fff;
-    color:#80cc28;
+    color: #80cc28;
 }
 
-.navbar .register-header{
+.navbar .register-header {
     padding: 5px 15px;
     color: #80cc28;
     cursor: pointer;
     transition: .5s;
 }
 
-.navbar .register-header:hover{
+.navbar .register-header:hover {
     background-color: #80cc28;
     color: white;
 }
 
-.wrapper{
-    background-color:whitesmoke;
+.wrapper {
+    background-color: whitesmoke;
     padding: 50px;
     border-radius: 15px;
     /* border: 2px solid #80cc28; */
@@ -103,29 +107,29 @@ header {
     align-items: center;
 }
 
-.wrapper .login-box{
-    width: 100%; 
+.wrapper .login-box {
+    width: 100%;
     padding: 40px;
-}   
+}
 
-.login-box h2{
+.login-box h2 {
     font-size: 2em;
     text-align: center;
 }
 
-.input-box{
+.input-box {
     position: relative;
     width: 100%;
     height: 50px;
-    margin: 20px 0px;    
+    margin: 20px 0px;
 }
 
-.input-box input{
+.input-box input {
     border-radius: 5px;
     border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
-.input-box p{
+.input-box p {
     padding-bottom: 5px;
 }
 
@@ -134,60 +138,61 @@ header {
     border-radius: 30px;
     width: px;
     padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adjust shadow as needed */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Adjust shadow as needed */
 }
 
-.input-bar input{
+.input-bar input {
     border: none;
     outline: none;
     width: 100%;
 }
 
-.login-box button{
+.login-box button {
     appearance: button;
-  backface-visibility: hidden;
-  background-color: #80cc28;
-  border-radius: 6px;
-  border-width: 0;
-  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  /* font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+    backface-visibility: hidden;
+    background-color: #80cc28;
+    border-radius: 6px;
+    border-width: 0;
+    box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .1) 0 2px 5px 0, rgba(0, 0, 0, .07) 0 1px 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    /* font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
   font-size: 100%; */
-  height: 44px;
-  line-height: 1.15;
-  margin: 12px 0 0;
-  outline: none;
-  overflow: hidden;
-  padding: 0 25px;
-  position: relative;
-  text-align: center;
-  text-transform: none;
-  transform: translateZ(0);
-  transition: all .2s,box-shadow .08s ease-in;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  width: 100%;
+    height: 44px;
+    line-height: 1.15;
+    margin: 12px 0 0;
+    outline: none;
+    overflow: hidden;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transform: translateZ(0);
+    transition: all .2s, box-shadow .08s ease-in;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 100%;
 }
 
-    .login-box button:hover{
-        background-color: white;
-        color: #80cc28;
-        border: 2px solid#80cc28;
-    }
+.login-box button:hover {
+    background-color: white;
+    color: #80cc28;
+    border: 2px solid#80cc28;
+}
 
-.login-register{
+.login-register {
     padding-top: 30px;
 }
 
-.login-register p a{
+.login-register p a {
     text-decoration: none;
     color: #80cc28;
 }
 
-.login-register p a:hover{
+.login-register p a:hover {
     text-decoration: underline;
 }
 
@@ -196,12 +201,18 @@ footer {
     padding: 10px 0;
     text-align: center;
     width: 100%;
-    position: fixed; /* Fix the footer to the bottom */
-    bottom: 0; /* Position it at the bottom of the viewport */
+    position: fixed;
+    /* Fix the footer to the bottom */
+    bottom: 0;
+    /* Position it at the bottom of the viewport */
 }
 
-footer p{
-    color: white    ;
+footer p {
+    color: white;
 }
 
-
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
