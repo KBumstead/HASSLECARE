@@ -71,6 +71,15 @@ header {
     transition: .5s;
 }
 
+.navbar .login-header a{
+    text-decoration: none;
+    color: white;
+}
+.navbar .login-header a:hover{
+    text-decoration: none;
+    color: #80cc28;
+}
+
 .navbar .login-header:hover{
     background-color: #fff;
     color:#80cc28;
