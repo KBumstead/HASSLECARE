@@ -30,34 +30,64 @@
   <div class="wrapper">
     <div class="login-box">
       <h2>Account Information</h2>
-      <form action="#">
-        <div class="input-box">
-          <p>username</p>
-          <div class="input-bar">
-            <input type="text" required>
-          </div>
+      <div class="input-box">
+        <p>Username</p>
+        <div class="input-bar">
+          <input type="text" id="username" required readonly>
         </div>
-        <div class="input-box">
-          <p>Email</p>
-          <div class="input-bar">
-            <input type="Email" required>
-          </div>
+      </div>
+      <div class="input-box">
+        <p>Email</p>
+        <div class="input-bar">
+          <input type="email" id="email" required readonly>
         </div>
-        <h2>Business Account</h2>
-        <button class="green-btn">
-          start your business now
-        </button>
-        <hr>
-        <button class="red-btn">
-          log out
-        </button>
-      </form>
+      </div>
+      <h2>Business Account</h2>
+      <button class="green-btn">
+        start your business now
+      </button>
+      <hr>
+      <button class="red-btn">
+        log out
+      </button>
     </div>
   </div>
 
   <footer>
     <p>Copyright HassleCare 2023</p>
   </footer>
+
+  <script src="/session.js"></script>
+  <script>
+    // Function to update the username and email fields with data from the server
+    function updateFieldsWithData(data) {
+      document.getElementById("username").value = data.username;
+      document.getElementById("email").value = data.email;
+    }
+
+    // Make a fetch GET request when the page loads
+    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Failed to retrieve user data");
+        }
+      })
+      .then((data) => {
+        // Update the username and email fields with the response data
+        updateFieldsWithData(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+  </script>
 
 </body>
 
