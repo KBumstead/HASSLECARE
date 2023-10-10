@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Frontend for HassleCare app",
   "main": "index.js",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "start": "serve"
   },
