@@ -1,0 +1,14 @@
+{
+  "name": "hasslecare-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for HassleCare app",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}
