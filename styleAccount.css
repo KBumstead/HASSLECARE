@@ -1,10 +1,12 @@
-*{
+* {
     padding: 0;
     margin: 0;
-    font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif;
     font-size: 100%;
 }
-body, html {
+
+body,
+html {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -31,31 +33,33 @@ header {
     align-items: center;
     z-index: 100;
 }
-.logo-box{
+
+.logo-box {
     padding: 0px 30px;
 }
 
-.logo{
+.logo {
     text-decoration: none;
     color: white;
 }
 
-.searchBar{
+.searchBar {
     background-color: #fff;
     border-radius: 30px;
     padding: 5px 30px 5px 30px;
 }
 
-.searchBar input{
+.searchBar input {
     background: transparent;
     border: none;
     outline: none;
     /* text-align: center; */
 }
 
-.navbar{
+.navbar {
     padding: 0 30px;
 }
+
 .navbar button {
     border-radius: 10px;
     border: none;
@@ -63,7 +67,7 @@ header {
     text-align: center;
 }
 
-.navbar .login-header{
+.navbar .login-header {
     background-color: #80cc28;
     color: white;
     padding: 5px 15px;
@@ -71,27 +75,27 @@ header {
     transition: .5s;
 }
 
-.navbar .login-header:hover{
+.navbar .login-header:hover {
     background-color: #fff;
-    color:#80cc28;
+    color: #80cc28;
 }
 
-.navbar .register-header{
+.navbar .register-header {
     padding: 5px 15px;
     color: #80cc28;
     cursor: pointer;
     transition: .5s;
 }
 
-.navbar .register-header:hover{
+.navbar .register-header:hover {
     background-color: #80cc28;
     color: white;
 }
 
 
 
-.wrapper{
-    background-color:whitesmoke;
+.wrapper {
+    background-color: whitesmoke;
     padding: 50px;
     border-radius: 15px;
     /* border: 2px solid #80cc28; */
@@ -105,97 +109,58 @@ header {
     align-items: center;
 }
 
-.wrapper .login-box{
-    width: 100%; 
+.wrapper .login-box {
+    width: 100%;
     padding: 40px;
-}   
+}
 
-.login-box h2{
+.login-box h2 {
     font-size: 2em;
     text-align: center;
 }
 
-.input-box{
+.input-box {
     position: relative;
     width: 100%;
     height: 50px;
-    margin: 20px 0px;    
+    margin: 20px 0px;
 }
 
-.input-box input{
+.input-box input {
     border-radius: 5px;
     border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
-.input-box p{
+.input-box p {
     padding-bottom: 5px;
 }
+
 .input-bar {
     background-color: #fff;
     border-radius: 30px;
     width: px;
     padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adjust shadow as needed */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Adjust shadow as needed */
 }
 
-.input-bar input{
+.input-bar input {
     border: none;
     outline: none;
     width: 100%;
 }
 
 
-.green-btn{
-    
-  background-color: #FFFFFF;
-  border: 1px solid #80cc28;
-  border-radius: 8px;
-  box-sizing: border-box;
-  color: #80cc28;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 20px;
-  margin: 5px;
-  outline: none;
-  padding: 13px 23px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  touch-action: manipulation;
-  transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s;
-  user-select: none;
-  -webkit-user-select: none;
-  width: auto;
-}
-.green-btn:focus-visible {
-    box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
-    transition: box-shadow .2s;
-  }
-.green-btn:active {
-    background-color: #F7F7F7;
-    border-color: #000000;
-    transform: scale(.96);
-  }
-.green-btn:disabled {
-    border-color: #DDDDDD;
-    color: #DDDDDD;
-    cursor: not-allowed;
-    opacity: 1;
-  }
+.green-btn {
 
-
-.red-btn {
     background-color: #FFFFFF;
-    border: 1px solid red;
+    border: 1px solid #80cc28;
     border-radius: 8px;
     box-sizing: border-box;
-    color: red;
+    color: #80cc28;
     cursor: pointer;
     display: inline-block;
-    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
     font-size: 16px;
     font-weight: 600;
     line-height: 20px;
@@ -206,39 +171,87 @@ header {
     text-align: center;
     text-decoration: none;
     touch-action: manipulation;
-    transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s;
+    transition: box-shadow .2s, -ms-transform .1s, -webkit-transform .1s, transform .1s;
     user-select: none;
     -webkit-user-select: none;
     width: auto;
-  }
+}
+
+.green-btn:focus-visible {
+    box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+    transition: box-shadow .2s;
+}
+
+.green-btn:active {
+    background-color: #F7F7F7;
+    border-color: #000000;
+    transform: scale(.96);
+}
+
+.green-btn:disabled {
+    border-color: #DDDDDD;
+    color: #DDDDDD;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+
+.red-btn {
+    background-color: #FFFFFF;
+    border: 1px solid red;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: red;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    margin: 5px;
+    outline: none;
+    padding: 13px 23px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    touch-action: manipulation;
+    transition: box-shadow .2s, -ms-transform .1s, -webkit-transform .1s, transform .1s;
+    user-select: none;
+    -webkit-user-select: none;
+    width: auto;
+}
+
 .red-btn:focus-visible {
     box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
     transition: box-shadow .2s;
-  }
-  
+}
+
 .red-btn:active {
     background-color: #F7F7F7;
     border-color: #000000;
     transform: scale(.96);
-  }
+}
+
 .red-btn:disabled {
     border-color: #DDDDDD;
     color: #DDDDDD;
     cursor: not-allowed;
     opacity: 1;
-  }
+}
 
 footer {
     background-color: #80cc28;
     padding: 10px 0;
     text-align: center;
     width: 100%;
-    position: fixed; /* Fix the footer to the bottom */
-    bottom: 0; /* Position it at the bottom of the viewport */
+    position: fixed;
+    /* Fix the footer to the bottom */
+    bottom: 0;
+    /* Position it at the bottom of the viewport */
 }
 
-footer p{
-    color: white    ;
+footer p {
+    color: white;
 }
 
 .error-message {
