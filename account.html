@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="./styleaccountinformation.css">
+  <link rel="stylesheet" href="./styleAccount.css">
 </head>
 
 <body>
@@ -18,11 +18,17 @@
     </div>
 
     <nav class="navbar">
-      <button class="login-header">
+      <button class="login-header" id="login-header">
         Login
       </button>
-      <button class="register-header">
+      <button class="register-header" id="register-header">
         Register
+      </button>
+      <button class="login-header" id="account-header" style="display: none">
+        Account
+      </button>
+      <button class="register-header" id="logout-header" style="display: none">
+        Logout
       </button>
     </nav>
   </header>
@@ -58,7 +64,8 @@
     <p>Copyright HassleCare 2023</p>
   </footer>
 
-  <script src="/session.js"></script>
+  <script src="/buttonFunction.js"></script>
+  <script src="/common.js"></script>
   <script>
     // Function to update the username and email fields with data from the server
     function updateFieldsWithData(data) {

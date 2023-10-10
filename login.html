@@ -26,6 +26,12 @@
       <button class="register-header" id="register-header">
         Register
       </button>
+      <button class="login-header" id="account-header" style="display: none">
+        Account
+      </button>
+      <button class="register-header" id="logout-header" style="display: none">
+        Logout
+      </button>
     </nav>
   </header>
 
@@ -64,8 +70,8 @@
     <p>Copyright HassleCare 2023</p>
   </footer>
 
-  <script src="./buttonFunction.js"></script>
-  <script src="/session.js"></script>
+  <script src="/buttonFunction.js"></script>
+  <script src="/common.js"></script>
   <script>
     document.getElementById("login-btn").addEventListener("click", function () {
       event.preventDefault();

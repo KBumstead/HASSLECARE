@@ -44,3 +44,26 @@ function deleteAllCookies() {
         document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
 }
+
+// Function to toggle buttons based on the presence of a session cookie
+function toggleButtons() {
+    const loginButton = document.getElementById('login-header');
+    const registerButton = document.getElementById('register-header');
+    const accountButton = document.getElementById('account-header');
+    const logoutButton = document.getElementById('logout-header');
+
+    if (getCookie("sessionToken")) {
+        loginButton.style.display = 'none';
+        registerButton.style.display = 'none';
+        accountButton.style.display = 'block';
+        logoutButton.style.display = 'block';
+    } else {
+        loginButton.style.display = 'block';
+        registerButton.style.display = 'block';
+        accountButton.style.display = 'none';
+        logoutButton.style.display = 'none';
+    }
+}
+
+// Call the toggleButtons function when the page loads
+toggleButtons();
