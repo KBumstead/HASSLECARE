@@ -10,12 +10,12 @@ document.getElementById('register-header').addEventListener('click', function() 
     window.location.href = 'register.html';
 });
 
-document.getElementById('account-header').addEventListener('click', function() {
+document.getElementById('welcome-header').addEventListener('click', function() {
     // Navigate to another HTML page
     window.location.href = 'account.html';
 });
 
-document.getElementById('logout-header').addEventListener('click', function() {
+document.getElementById('account-header').addEventListener('click', function() {
     // Navigate to another HTML page
     window.location.href = 'account.html';
 });

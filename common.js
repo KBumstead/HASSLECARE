@@ -49,17 +49,17 @@ function deleteAllCookies() {
 function toggleButtons() {
     const loginButton = document.getElementById('login-header');
     const registerButton = document.getElementById('register-header');
-    const accountButton = document.getElementById('account-header');
-    const logoutButton = document.getElementById('logout-header');
+    const accountButton = document.getElementById('welcome-header');
+    const logoutButton = document.getElementById('account-header');
 
     if (getCookie("sessionToken")) {
         loginButton.style.display = 'none';
         registerButton.style.display = 'none';
-        accountButton.style.display = 'block';
-        logoutButton.style.display = 'block';
+        accountButton.style.display = 'inline';
+        logoutButton.style.display = 'inline';
     } else {
-        loginButton.style.display = 'block';
-        registerButton.style.display = 'block';
+        loginButton.style.display = 'inline';
+        registerButton.style.display = 'inline';
         accountButton.style.display = 'none';
         logoutButton.style.display = 'none';
     }
