@@ -47,9 +47,10 @@
         start your business now
       </button>
       <hr>
-      <button class="red-btn">
+      <button class="red-btn" id="logout-btn">
         log out
       </button>
+      <div id="error-message" class="error-message"></div>
     </div>
   </div>
 
@@ -75,6 +76,9 @@
       .then((response) => {
         if (response.ok) {
           return response.json();
+        } else if (response.status === 401) {
+          deleteAllCookies();
+          window.location.href = "/login";
         } else {
           throw new Error("Failed to retrieve user data");
         }
@@ -86,6 +90,28 @@
       .catch((error) => {
         console.error("Error:", error);
       });
+
+    document.getElementById("logout-btn").addEventListener("click", function () {
+      // Send a fetch request to your logout URL
+      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/logout`, {
+        method: "POST",
+        headers: {},
+      })
+        .then((response) => {
+          if (response.ok || response.status === 401) {
+            deleteAllCookies();
+            window.location.href = "/login";
+          } else {
+            // Logout failed, handle the error here
+            document.getElementById("error-message").textContent = "Logout failed. Please try again.";
+            throw new Error("Logout failed");
+          }
+        })
+        .catch((error) => {
+          // Handle any errors
+          console.error("Error:", error);
+        });
+    });
 
   </script>
 
