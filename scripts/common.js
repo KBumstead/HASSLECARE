@@ -3,7 +3,7 @@ async function fetchWithSession(url, request) {
         ...request,
         headers: {
             ...request.headers,
-            Session: request.headers.Session || getCookie("sessionToken")
+            Session: getCookie("sessionToken")
         }
     })
 }
@@ -65,7 +65,7 @@ function toggleButtons() {
     }
 }
 
-toggleButtons()
+// toggleButtons()
 
 // Add event listener for search input in navbar
 document.getElementById("search-input").addEventListener('keyup', function (event) {
@@ -76,15 +76,17 @@ document.getElementById("search-input").addEventListener('keyup', function (even
 })
 
 function imageToBase64(file) {
-    let base64String = null
-    if (file) {
+    return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = function (e) {
-            base64String = e.target.result;
+        reader.onload = function () {
+            const base64String = reader.result; // Extract base64 string
+            resolve(base64String);
+        };
+        reader.onerror = function (error) {
+            reject(error);
         };
         reader.readAsDataURL(file);
-    }
-    return base64String
+    });
 }
 
 function getMonthName(monthId) {

@@ -137,7 +137,7 @@
     }
 
     // Make a fetch GET request when the page loads
-    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/services?q=${queryParams.get('q')}`, {
+    fetch(`https://alert-tourmaline-pantydraco.glitch.me/services?q=${queryParams.get('q')}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

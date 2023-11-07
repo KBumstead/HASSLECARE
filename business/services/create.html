@@ -115,10 +115,10 @@
     crossorigin="anonymous"></script>
 
   <script>
-    document.getElementById("create-btn").addEventListener("click", function () {
+    document.getElementById("create-btn").addEventListener("click", async function () {
       event.preventDefault();
       // Get the input values
-      const productImage = imageToBase64(document.getElementById("productImage").files[0]); //WIP
+      const productImage = await imageToBase64(document.getElementById("productImage").files[0]);
       const productName = document.getElementById("productName").value;
       const productDescription = document.getElementById("productDescription").value;
       const productAddress = document.getElementById("productAddress").value;

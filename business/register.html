@@ -125,10 +125,10 @@
       // Create the payload
       const payload = {
         name: name,
-        email: description,
+        description: description,
       };
 
-      fetch(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}`, {
+      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -137,7 +137,7 @@
       })
         .then((response) => {
           if (response.ok) {
-            window.location.href = "/account";
+            window.location.href = "/business";
           }
           else if (response.status === 401) {
             deleteAllCookies();

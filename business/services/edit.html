@@ -43,7 +43,8 @@
   <nav class="navbar navbar-expand-lg navbar-custom">
     <div class="container d-flex justify-content-between">
       <a class="navbar-brand fw-bold text-white" href="/">HassleCare</a>
-      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services" id="search-input" style="max-width: 40rem;">
+      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services"
+        id="search-input" style="max-width: 40rem;">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -126,6 +127,9 @@
     crossorigin="anonymous"></script>
 
   <script>
+    const url = window.location.href;
+    const queryParams = new URLSearchParams(new URL(url).search);
+
     //GET
     function updateFieldsWithData(data) {
       document.getElementById("previewImage").src = data.image;
@@ -160,9 +164,6 @@
     //PUT
     document.getElementById("update-btn").addEventListener("click", function () {
       event.preventDefault();
-
-      const url = window.location.href;
-      const queryParams = new URLSearchParams(new URL(url).search);
 
       // Get the input values
       const serviceImage = document.getElementById("serviceImage").value; //WIP
@@ -214,9 +215,6 @@
     // Delete
     document.getElementById("delete-btn").addEventListener("click", function () {
       event.preventDefault();
-
-      const url = window.location.href;
-      const queryParams = new URLSearchParams(new URL(url).search);
 
       // Make a Put request when the page loads
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services/${queryParams.get('serviceId')}`, {

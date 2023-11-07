@@ -39,7 +39,8 @@
   <nav class="navbar navbar-expand-lg navbar-custom mb-3">
     <div class="container d-flex justify-content-between">
       <a class="navbar-brand fw-bold text-white" href="/">HassleCare</a>
-      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services" id="search-input" style="max-width: 40rem;">
+      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services"
+        id="search-input" style="max-width: 40rem;">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -99,7 +100,7 @@
 
     <div class="tab-content">
       <div class="tab-pane fade show active" id="services-tab-pane">
-        <button type="button" class="btn btn-brand mt-3 mb-3">Create a new service</button>
+        <button type="button" class="btn btn-brand mt-3 mb-3" id="create-service-btn">Create a new service</button>
         <div class="row row-cols-3 row-cols-lg-5 g-2" id="services-container">
           <!-- Repeat the div for each card -->
           <div class="col services-item" style="display: none; cursor: pointer;">
@@ -145,7 +146,13 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
+
   <script>
+    document.getElementById("create-service-btn").addEventListener("click", function () {
+      event.preventDefault()
+      window.location.href = "/business/services/create"
+    })
+
     function initBusinessInfo() {
       function updateBusinessInfo(data) {
         document.getElementById('name').textContent = data.name;
@@ -165,7 +172,7 @@
             window.location.href = "/login";
           }
           else {
-            window.location.reload();
+            window.location.href = "/account";
           }
         })
         .then(data => {
@@ -202,12 +209,15 @@
             deleteAllCookies();
             window.location.href = "/login";
           }
+          else if (response.status === 404) {
+            return []
+          }
           else {
-            window.location.reload();
+            window.location.href = "/account";
           }
         })
         .then(data => {
-          updateBusinessInfo(data)
+          updateServicesInfo(data)
         })
         .catch(error => {
           console.error('Error:', error);
@@ -246,8 +256,11 @@
             deleteAllCookies();
             window.location.href = "/login";
           }
+          else if (response.status === 404) {
+            return []
+          }
           else {
-            window.location.reload();
+            window.location.href = "/account";
           }
         })
         .then(data => {

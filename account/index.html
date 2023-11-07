@@ -153,6 +153,16 @@
     crossorigin="anonymous"></script>
 
   <script>
+    document.getElementById("go-business").addEventListener("click", function () {
+      event.preventDefault();
+      window.location.href = "/business";
+    })
+
+    document.getElementById("create-business").addEventListener("click", function () {
+      event.preventDefault();
+      window.location.href = "/business/register";
+    })
+
     function updateFieldsWithData(data) {
       document.getElementById("username").textContent = data.username;
       document.getElementById("email").textContent = data.email;
@@ -241,6 +251,9 @@
         .then((response) => {
           if (response.ok) {
             return response.json();
+          }
+          else if (response.status === 404) {
+            return []
           }
           else if (response.status === 401) {
             deleteAllCookies();
