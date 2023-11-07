@@ -65,6 +65,18 @@ function toggleButtons() {
     }
 }
 
+function imageToBase64(file) {
+    let base64String = null
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            base64String = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+    return base64String
+}
+
 function getMonthName(monthId) {
     const monthNames = [
         "January", "February", "March", "April", "May", "June",
