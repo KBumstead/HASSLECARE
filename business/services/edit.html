@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Edit Services</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -70,13 +71,13 @@
     </div>
   </nav>
 
-  <div class="container">
+  <div class="container mt-5">
     <div class="row">
-      <div class="col-md-6">
-        <h2 class="mt-5">Edit a service</h2>
+      <div class="col-md-8">
+        <h2>Edit a service</h2>
         <div class="form-group">
-          <label for="productImage">Image</label>
-          <input type="file" class="form-control" id="productImage">
+          <label for="serviceImage">Image</label>
+          <input type="file" class="form-control" id="serviceImage">
         </div>
         <form>
           <div class="form-group">
@@ -88,8 +89,8 @@
             <textarea class="form-control" id="serviceDescription" rows="3"></textarea>
           </div>
           <div class="form-group">
-            <label for="productAddress">Address</label>
-            <input type="text" class="form-control" id="productAddress" placeholder="Enter address">
+            <label for="serviceAddress">Address</label>
+            <input type="text" class="form-control" id="serviceAddress" placeholder="Enter address">
           </div>
           <div class="form-group">
             <label for="servicePrice">Price</label>
@@ -106,10 +107,10 @@
           <button type="submit" class="btn btn-outline-danger mt-3" id="delete-btn">Delete Service</button>
         </form>
       </div>
-      <div class="col-md-6 mt-5">
+      <div class="col-md-4">
 
         <!-- Existing Image -->
-        <img src="EXISTING-IMAGE" alt="EXISTING IMAGE" class="img-fluid">
+        <img src="" alt="Service image" class="img-fluid" id="previewImage">
       </div>
     </div>
   </div>
@@ -129,10 +130,10 @@
   <script>
     //GET
     function updateFieldsWithData(data) {
-      document.getElementById("productImage").value = data.image; //WIP
+      document.getElementById("previewImage").src = data.image;
       document.getElementById("serviceName").value = data.name;
       document.getElementById("serviceDescription").value = data.description;
-      document.getElementById("productAddress").value = data.address;
+      document.getElementById("serviceAddress").value = data.address;
       document.getElementById("servicePrice").value = data.price;
       document.getElementById("serviceTags").value = data.tags;
     }
@@ -158,11 +159,6 @@
         console.error("Error:", error);
       });
 
-    document.getElementById("cancel-btn").addEventListener("click", function () {
-      event.preventDefault();
-      window.location.href = "/dashboard-orders"
-    })
-
     //PUT
     document.getElementById("update-btn").addEventListener("click", function () {
       event.preventDefault();
@@ -171,19 +167,19 @@
       const queryParams = new URLSearchParams(new URL(url).search);
 
       // Get the input values
-      const productImage = document.getElementById("productImage").value; //WIP
+      const serviceImage = document.getElementById("serviceImage").value; //WIP
       const serviceName = document.getElementById("serviceName").value;
       const serviceDescription = document.getElementById("serviceDescription").value;
-      const productAddress = document.getElementById("productAddress").value;
+      const serviceAddress = document.getElementById("serviceAddress").value;
       const servicePrice = document.getElementById("servicePrice").value;
       const serviceTags = document.getElementById("serviceTags").value;
 
       // Create the payload
       const payload = {
-        image: productImage,
+        image: serviceImage,
         name: serviceName,
         description: serviceDescription,
-        address: productAddress,
+        address: serviceAddress,
         price: servicePrice,
         tags: serviceTags,
       };
@@ -198,12 +194,12 @@
       })
         .then((response) => {
           if (response.status === 200) {
-            window.location.href = "/dashboard-orders";
+            window.location.href = "/business";
           } else if (response.status === 401) {
             deleteAllCookies();
             window.location.href = "/login";
           } else {
-            window.location.href = "/edit-service";
+            window.location.href = "/business";
           }
         })
         .catch((error) => {
@@ -211,7 +207,13 @@
         });
     });
 
-    //DELETE
+    // Cancel
+    document.getElementById("cancel-btn").addEventListener("click", function () {
+      event.preventDefault();
+      window.location.href = "/business"
+    })
+
+    // Delete
     document.getElementById("delete-btn").addEventListener("click", function () {
       event.preventDefault();
 
@@ -227,7 +229,7 @@
       })
         .then((response) => {
           if (response.status === 204) {
-            window.location.href = "/dashboard-orders";
+            window.location.href = "/business";
           } else if (response.status === 401) {
             deleteAllCookies();
             window.location.href = "/login";
