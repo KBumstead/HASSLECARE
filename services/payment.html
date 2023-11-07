@@ -44,7 +44,8 @@
   <nav class="navbar navbar-expand-lg navbar-custom">
     <div class="container d-flex justify-content-between">
       <a class="navbar-brand fw-bold text-white" href="/">HassleCare</a>
-      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services" id="search-input" style="max-width: 40rem;">
+      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services"
+        id="search-input" style="max-width: 40rem;">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -170,6 +171,10 @@
     crossorigin="anonymous"></script>
 
   <script>
+    if (!getCookie("sessionToken")) {
+      window.location.href = "/login";
+    }
+
     const url = window.location.href;
     const queryParams = new URLSearchParams(new URL(url).search);
 

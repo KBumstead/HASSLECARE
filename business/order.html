@@ -188,11 +188,8 @@
     }
 
     // Make a fetch GET request when the page loads
-    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
+      method: "GET"
     })
       .then((response) => {
         if (response.status === 200) {
@@ -216,7 +213,7 @@
       event.preventDefault();
 
       // Make a fetch Post request when the page loads   
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me//business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
+      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
         method: "PATCH"
       })
         .then((response) => {
@@ -244,7 +241,7 @@
       })
         .then((response) => {
           if (response.status === 204) {
-            window.location.href = "/dashboard-orders";
+            window.location.href = "/business";
           } else if (response.status === 401) {
             deleteAllCookies();
             window.location.href = "/login";
