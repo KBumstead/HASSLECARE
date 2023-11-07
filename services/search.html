@@ -81,10 +81,11 @@
           <div class="card">
             <img src="your-image-source" class="card-img-top" alt="...">
             <div class="card-body">
-              <h4>$9.99</h5>
-                <h5 class="card-title">Add Title Here</h5>
-                <h6><i class="fa-solid fa-store" style="color: #a4e100;"></i> Add store name</h6>
-                <h6><i class="fa-solid fa-location-dot" style="color: #ba3636;"></i> Add location</h6>
+              <h4>$9.99</h5>              
+                <h5 class="card-title" id = "serviceName">Add Title Here</h5>
+                <h6><i class="fa-solid fa-store" style="color: #a4e100;" id="businessName"></i> Add store name</h6>
+                <h6><i class="fa-solid fa-location-dot" style="color: #ba3636;"  id = "businessLocation"></i> Add location</h6>
+
             </div>
           </div>
         </a>
@@ -108,5 +109,45 @@
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
 </body>
+
+
+
+
+<script>
+
+  //GET
+  
+  function updateFieldsWithData(data) {
+     document.getElementById("serviceImage").value = data.image; //WIP
+     document.getElementById("serviceName").value = data.name;
+     document.getElementById("businessLocation").value = data.address;
+     document.getElementById("businessName").value = data.businessName;
+   }
+
+   // Make a fetch GET request when the page loads
+   fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/services`, {
+     method: "GET",
+     headers: {
+       "Content-Type": "application/json",
+     },
+   })
+     .then((response) => {
+       if (response.status == 200) {
+         return response.json();
+       } else {
+         throw new Error("Failed to retrieve service");
+       }
+     })
+     .then((data) => {
+       updateFieldsWithData(data);
+     })
+     .catch((error) => {
+       console.error("Error:", error);
+     });
+
+</script>
+
+
+
 
 </html>

@@ -89,62 +89,62 @@
         <li class="list-group-item oddrow">
           <div class="d-flex flex-row oddrow">
             <div class="p-1 me-5 width10">Services</div>
-            <div class="p-1 me-5">Dog and cat grooming</div>
+            <div class="p-1 me-5" id="customerserviceName">Dog and cat grooming</div>
           </div>
         </li>
         <li class="list-group-item">
           <div class="d-flex flex-row ">
             <div class="p-1 me-5 width10">Service owner</div>
-            <div class="p-1 me-5">Alice's Petcare</div>
+            <div class="p-1 me-5" id="customerbusinessName">Alice's Petcare</div>
           </div>
         </li>
         <li class="list-group-item oddrow">
           <div class="d-flex flex-row oddrow">
             <div class="p-1 me-5 width10">Location</div>
-            <div class="p-1 me-5">Peach Street</div>
+            <div class="p-1 me-5" id="customerserviceAddress">Peach Street</div>
           </div>
         </li>
         <li class="list-group-item">
           <div class="d-flex flex-row">
             <div class="p-1 me-5 width10">Date</div>
-            <div class="p-1 me-5">Nov 11</div>
+            <div class="p-1 me-5" id="customerDate">Nov 11</div>
           </div>
         </li>
         <li class="list-group-item oddrow">
           <div class="d-flex flex-row oddrow">
             <div class="p-1 me-5 width10">Ordered at</div>
-            <div class="p-1 me-5">Nov 9</div>
+            <div class="p-1 me-5" id="customerOrderedAt">Nov 9</div>
           </div>
         </li>
         <li class="list-group-item ">
           <div class="d-flex flex-row ">
             <div class="p-1 me-5 width10">Note</div>
-            <div class="p-1 me-5">My dog is a bit wild</div>
+            <div class="p-1 me-5" id="customerNote">My dog is a bit wild</div>
           </div>
         </li>
         <li class="list-group-item oddrow">
           <div class="d-flex flex-row oddrow">
             <div class="p-1 me-5 width10">Status</div>
-            <div class="p-1 me-5 text-warning">Pending</div>
+            <div class="p-1 me-5 text-warning" id="customerStatus">Pending</div>
           </div>
         </li>
         <li class="list-group-item">
           <div class="d-flex flex-row">
             <div class="p-1 me-5 width10">Ordered by</div>
-            <div class="p-1 me-5">veen</div>
+            <div class="p-1 me-5" id="customerName">veen</div>
           </div>
         </li>
         <li class="list-group-item oddrow">
           <div class="d-flex flex-row oddrow">
             <div class="p-1 me-5 width10">Order location</div>
-            <div class="p-1 me-5">Orchard Street</div>
+            <div class="p-1 me-5" id="customerAddress">Orchard Street</div>
           </div>
         </li>
       </ul>
     </div>
 
     <div class="d-inline-flex my-3">
-      <a href="#" class="btn btn-outline-danger mx-1">Cancel Order</a>
+      <a href="#" class="btn btn-outline-danger mx-1" id="delete-btn">Cancel Order</a>
     </div>
 
   </div>
@@ -161,5 +161,91 @@
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
 </body>
+
+
+
+
+<script>
+  //GET
+
+  function updateFieldsWithData(data) {
+    document.getElementById("customerDate").value = data.date; //WIP
+    document.getElementById("customerOrderedAt").value = data.orderedAt;
+    document.getElementById("customerStatus").value = data.status;
+    document.getElementById("customerserviceName").value = data.serviceName;
+    document.getElementById("customerserviceAddress").value = data.serviceAddress;
+    document.getElementById("customerNote").value = data.note;
+    document.getElementById("customerbusinessName").value = data.businessName;
+    document.getElementById("customerName").value = data.customerName;
+    document.getElementById("customerAddress").value = data.customerAddress;
+  }
+
+  // Make a fetch GET request when the page loads
+  fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json()
+      } else if (response.status === 401) {
+        window.location.href = "/login"
+      } else {
+        window.location.href = "/account";
+      }
+    })
+
+
+
+    .then((data) => {
+      updateFieldsWithData(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+
+
+</script>
+
+
+<script>
+  //DELETE delete button
+  document.getElementById("delete-btn").addEventListener("click", function () {
+      event.preventDefault();
+
+      const url = window.location.href;
+      const queryParams = new URLSearchParams(new URL(url).search);
+
+      // Make a Put request when the page loads
+      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.status === 204) {
+            window.location.reload();
+          } else if (response.status === 401) {
+            deleteAllCookies();
+            window.location.href = "/login";
+          } else {
+            window.location.reload();
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+
+</script>
+
+
+
+
+
 
 </html>
