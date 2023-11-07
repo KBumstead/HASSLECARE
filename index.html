@@ -33,6 +33,18 @@
       border-color: #70ac2b !important;
       color: white !important;
     }
+
+    .carousel-inner img {
+      max-width: 100%;
+      max-height: 450px;
+      object-fit: cover;
+    }
+
+    .carousel-item img {
+      max-width: 100%;
+      max-height: 450px;
+      object-fit: cover;
+    }
   </style>
 </head>
 
@@ -40,7 +52,8 @@
   <nav class="navbar navbar-expand-lg navbar-custom">
     <div class="container d-flex justify-content-between">
       <a class="navbar-brand fw-bold text-white" href="/">HassleCare</a>
-      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services" id="search-input" style="max-width: 40rem;">
+      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services"
+        id="search-input" style="max-width: 40rem;">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -66,92 +79,159 @@
     </div>
   </nav>
 
-  <div class="px-4 py-5 my-5 text-center">
-    <img class="d-block mx-auto mb-4" src="/images/image.png" alt="" width="72" height="57">
-    <h1 class="display-5 fw-bold">HassleCare</h1>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">Lorem ipsum dolor sit amet.</p>
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to=""></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to=""></li>
+    </ol>
+
+
+    <!-- change image here -->
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="/images/1.png" class="d-block w-100" alt="img1">
+      </div>
+      <div class="carousel-item">
+        <img src="/images/2.png" class="d-block w-100" alt="img2">
+      </div>
+      <div class="carousel-item">
+        <img src="/images/3.png" class="d-block w-100" alt="img3">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only"></span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only"></span>
+    </a>
+  </div>
+
+
+  <div class="container mt-5">
+    <h2 class="text-center" style="color: #80cc28;">Choose Categories</h2>
+    <div class="row">
+
+      <!-- copy here -->
+      <div class="col-md-4 mt-3 mb-3">
+        <a href="/services/search?q=cleaning" class="text-decoration-none text-dark">
+          <div class="card text-center">
+            <i class="fas fa-broom fa-5x mt-3" style="color: #80cc28;"></i>
+            <div class="card-body">
+              <h5 class="card-title">House Cleaning</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 mt-3 mb-3">
+        <a href="/services/search?q=AC%20repair" class="text-decoration-none text-dark">
+          <div class="card text-center">
+            <i class="fas fa-snowflake fa-5x mt-3" style="color: #80cc28;"></i>
+            <div class="card-body">
+              <h5 class="card-title">AC Repair</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 mt-3 mb-3">
+        <a href="/services/search?q=electric%20repair" class="text-decoration-none text-dark">
+          <div class="card text-center">
+            <i class="fas fa-plug fa-5x mt-3" style="color: #80cc28;"></i>
+            <div class="card-body">
+              <h5 class="card-title">Electrical Repair</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 mt-3 mb-3">
+        <a href="/services/search?q=plumbing" class="text-decoration-none text-dark">
+          <div class="card text-center">
+            <i class="fas fa-toilet fa-5x mt-3" style="color: #80cc28;"></i>
+            <div class="card-body">
+              <h5 class="card-title">Plumbing</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 mt-3 mb-3">
+        <a href="/services/search?q=car" class="text-decoration-none text-dark">
+          <div class="card text-center">
+            <i class="fas fa-car-rear fa-5x mt-3" style="color: #80cc28;"></i>
+            <div class="card-body">
+              <h5 class="card-title">Car Cleaning & Maintenace</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 mt-3 mb-3">
+        <a href="/services/search?q=pet" class="text-decoration-none text-dark">
+          <div class="card text-center">
+            <i class="fas fa-dog fa-5x mt-3" style="color: #80cc28;"></i>
+            <div class="card-body">
+              <h5 class="card-title">Pet Care</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 mt-3 mb-3">
+        <a href="/services/search?q=baby" class="text-decoration-none text-dark">
+          <div class="card text-center">
+            <i class="fas fa-baby fa-5x mt-3" style="color: #80cc28;"></i>
+            <div class="card-body">
+              <h5 class="card-title">Babies</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <!-- Add more cards -->
+
+      <div class="jumbotron mt-5">
+        <h1 class="display-4">Join HassleCare Today!</h1>
+        <p class="lead">Register or login today to get the best homecare services at your fingertips.</p>
+        <hr class="my-4">
+        <p>Click the button below to get started.</p>
+        <p class="lead">
+          <a class="btn btn-brand btn-lg mr-2" href="/register" role="button">Register</a>
+          <a class="btn btn-outline-dark btn-lg" href="/login" role="button">Login</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <div class="jumbotron">
+        <h1 class="display-4">Have a Business?</h1>
+        <p class="lead">Join us and become a partner to reach more customers and grow your business.</p>
+        <hr class="my-4">
+        <p>Click the button below to get started.</p>
+        <p class="lead">
+          <a class="btn btn-brand btn-lg" href="/register" role="button">Become a Partner</a>
+        </p>
+      </div>
+
+      <div class="mt-5">
+        <h4>Follow us on social media:</h4>
+        <a href="https://www.youtube.com/@abdul_bari"><i class="fab fa-youtube fa-2x" style="color: #80cc28;"></i></a>
+        <a href="https://twitter.com/elonmusk?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><i
+            class="fab fa-twitter fa-2x ml-3" style="color: #80cc28;"></i></a>
+        <a href="https://www.instagram.com/widitra.rama/"><i class="fab fa-instagram fa-2x ml-3"
+            style="color: #80cc28;"></i></a>
+      </div>
     </div>
   </div>
 
-  <div class="container">
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-      <div class="col-10 col-sm-8 col-lg-6">
-        <img src="/images/image.png" class="rounded mx-lg-auto img-fluid" alt="Dogs on a garden" width="700"
-          height="500" loading="lazy">
-      </div>
-      <div class="col-lg-6">
-        <h1 class="display-5 fw-bold lh-1 mb-3">Find nearby services without hassle!</h1>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut
-          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-          nisi ut
-          aliquip ex ea commodo consequat.</p>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <button type="button" class="btn btn-brand btn-lg px-4 me-md-2">Register</button>
-          <button type="button" class="btn btn-outline-dark btn-lg px-4">Login</button>
-        </div>
-      </div>
-    </div>
 
-    <div class="row flex-lg-row align-items-center g-5 py-5">
-      <div class="col-10 col-sm-8 col-lg-6">
-        <img src="/images/image.png" class="rounded mx-lg-auto img-fluid" alt="Dogs on a garden" width="700"
-          height="500" loading="lazy">
-      </div>
-      <div class="col-lg-6">
-        <h1 class="display-5 fw-bold lh-1 mb-3">Have a business? Register it here!</h1>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut
-          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-          nisi ut
-          aliquip ex ea commodo consequat.</p>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <button type="button" class="btn btn-brand btn-lg px-4">Create a business account</button>
-        </div>
-      </div>
-    </div>
 
-    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
-      <div class="row align-items-center g-lg-5 py-5">
-        <div class="col-lg-5 text-center text-lg-start">
-          <h1 class="display-5 fw-bold lh-1 mb-3">Why waiting?</h1>
-          <p class="lead">Register now and see all services around you</p>
-        </div>
-        <div class="col-md-10 mx-auto col-lg-7">
-          <form class="p-4 p-md-5 border rounded-3 bg-light">
-            <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-              <label for="floatingInput">Email address</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-              <label for="floatingPassword">Password</label>
-            </div>
-            <div class="checkbox mb-3">
-              <label>
-                <input type="checkbox" value="remember-me"> Remember me
-              </label>
-            </div>
-            <button class="w-100 btn btn-lg btn-brand" type="submit">Sign up</button>
-            <hr class="my-4">
-            <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <footer class="bg-body-tertiary mt-auto py-4">
+  <footer class="bg-body-tertiary mt-5 py-4">
     <div class="container">
       <h6 class="text-center">Copyright HassleCare 2023</h6>
     </div>
   </footer>
 
-  <script src="/scripts/common.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/cb7394df23.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>

@@ -43,7 +43,8 @@
   <nav class="navbar navbar-expand-lg navbar-custom">
     <div class="container d-flex justify-content-between">
       <a class="navbar-brand fw-bold text-white" href="/">HassleCare</a>
-      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services" id="search-input" style="max-width: 40rem;">
+      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services"
+        id="search-input" style="max-width: 40rem;">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -105,16 +106,23 @@
 
     // Update fields
     function updateFieldsWithData(data) {
+      console.log(data)
       document.getElementById("serviceImage").src = data.image;
-      document.getElementById("serviceTitle").value = data.name;
-      document.getElementById("serviceDescription").value = data.description;
-      document.getElementById("servicePrice").value = data.price;
-      document.getElementById("businessName").value = data.businessName;
-      document.getElementById("businessLocation").value = data.address;
+      document.getElementById("serviceTitle").textContent = data.name;
+      document.getElementById("serviceDescription").textContent = data.description;
+      document.getElementById("servicePrice").textContent = `$ ${data.price}`;
+
+      const businessNameText = document.createTextNode(data.businessName);
+      const businessNameElement = newServiceOverview.getElementById('businessName');
+      businessNameElement.replaceChild(businessNameText, businessNameElement.lastChild);
+
+      const businessLocationText = document.createTextNode(data.address);
+      const businessLocationElement = newServiceOverview.getElementById('businessLocation');
+      businessLocationElement.replaceChild(businessLocationText, businessLocationElement.lastChild);
     }
 
     // Make a fetch GET request when the page loads
-    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/services/${queryParams.get('serviceId')}`, {
+    fetch(`https://alert-tourmaline-pantydraco.glitch.me/services/${queryParams.get('serviceId')}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

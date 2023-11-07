@@ -162,11 +162,11 @@
       });
 
     //PUT
-    document.getElementById("update-btn").addEventListener("click", function () {
+    document.getElementById("update-btn").addEventListener("click", async function () {
       event.preventDefault();
 
       // Get the input values
-      const serviceImage = document.getElementById("serviceImage").value; //WIP
+      const serviceImage = await imageToBase64(document.getElementById("serviceImage").files[0]);
       const serviceName = document.getElementById("serviceName").value;
       const serviceDescription = document.getElementById("serviceDescription").value;
       const serviceAddress = document.getElementById("serviceAddress").value;
