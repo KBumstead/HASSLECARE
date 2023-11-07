@@ -2,6 +2,8 @@
 <html>
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Order Confirmation</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -33,7 +35,7 @@
     }
 
     .form-control {
-      width: 40rem;
+      max-width: 40rem;
     }
   </style>
 </head>
@@ -74,17 +76,12 @@
     <h4>Order Confirmation</h4>
     <h2>Product Title</h2>
     <h4>$9.99</h4>
-    <h6><i class="fa-solid fa-store" style="color: #a4e100;"></i> Add store name</h6>
-    <h6><i class="fa-solid fa-location-dot" style="color: #ba3636;"></i> Add location</h6>
+    <h6><i class="fa-solid fa-store" style="color: #80cc28;"></i> Add store name</h6>
+    <h6><i class="fa-solid fa-location-dot" style="color: red;"></i> Add location</h6>
     <form>
-      <div class="mb-3">
-        <label for="address" class="form-label">Select Address</label>
-        <select class="form-select" id="address">
-          <option selected>Select your address</option>
-          <option value="1">Add Address 1</option>
-          <option value="2">Add Address 2</option>
-          <option value="3">Add Address 3</option>
-        </select>
+      <div class="mb3">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address" placeholder="Enter address">
       </div>
       <div class="mb-3">
         <label for="date" class="form-label">Pick a Date</label>
@@ -96,9 +93,9 @@
       </div>
       <div class="mb-3">
         <label for="note" class="form-label">Note</label>
-        <textarea class="form-control" placeholder="Leave a comment here" id="note"
-          style="height: 100px;"></textarea>
+        <textarea class="form-control" placeholder="Leave a comment here" id="note" style="height: 100px;"></textarea>
       </div>
+
       <div class="mb-3">
         <label for="payment" class="form-label">Choose Payment Method</label>
         <select class="form-select" id="payment" onchange="showPaymentInfo(this.value)">
@@ -133,22 +130,17 @@
           rel="nofollow"></a>
       </div>
 
-
       <div class="card mb-3">
         <div class="card-body">
-
-          <!-- fetch here -->
           <h5 class="card-title">Order Summary</h5>
-          <p class="card-text">Subtotal: $9.99</p>
-          <p class="card-text">Platform fee: $0.60</p>
-          <h2>Total: $10.59</h4>
+          <p class="card-text" id="subtotal-price">Subtotal: $9.99</p>
+          <p class="card-text" id="platform-price">Platform fee: $0.60</p>
+          <h2 id="total-price">Total: $10.59</h4>
         </div>
       </div>
 
-
       <button type="submit" class="btn btn-brand mt-3 mb-5" id="pay-btn">Pay & Confirm</button>
       <button type="submit" class="btn btn-outline-secondary mt-3 mb-5" id="cancel-btn">Cancel</button>
-
     </form>
   </div>
 
@@ -180,28 +172,61 @@
     crossorigin="anonymous"></script>
 
   <script>
+    const url = window.location.href;
+    const queryParams = new URLSearchParams(new URL(url).search);
+
+    function initOrderSummary() {
+      function updateFieldsWithData(data) {
+        document.getElementById("subtotal-price").textContent = `Subtotal: $${data.price}`
+        document.getElementById("platform-price").textContent = `Platform fee: $${0.6}`
+        document.getElementById("total-price").textContent = `Total: $${data.price + 0.6}`
+      }
+
+      // GET
+      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/services/${queryParams.get('serviceId')}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            throw new Error("Failed to retrieve service");
+          }
+        })
+        .then((data) => {
+          updateFieldsWithData(data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+
+    initOrderSummary();
+
     document.getElementById("pay-btn").addEventListener("click", function () {
       event.preventDefault();
-
-      const url = window.location.href;
-      const queryParams = new URLSearchParams(new URL(url).search);
 
       // Get the input values
       const address = document.getElementById("address").value;
       const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
       const note = document.getElementById("note").value;
+      const dateUnixTimestamp = new Date(`${date}T${time}`).getTime();
 
       // Create the payload
       const payload = {
-        date: date,
-        customerAddress: address,
+        date: dateUnixTimestamp,
         note: note,
         serviceId: queryParams.get('serviceId'),
         customerAccountId: getCookies("accountId"),
+        customerAddress: address,
       };
 
       // Make a fetch Post request when the page loads
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me//accounts/${getCookie("accountId")}/orders`, {
+      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -215,7 +240,7 @@
             deleteAllCookies();
             window.location.href = "/login";
           } else {
-            window.location.href = "/services/payment";
+            window.location.href = `/services/payment?q=${queryParams.get("q")}`;
           }
         })
         .catch((error) => {
@@ -223,7 +248,6 @@
         });
     });
   </script>
-
 </body>
 
 </html>
