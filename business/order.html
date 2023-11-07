@@ -52,7 +52,8 @@
   <nav class="navbar navbar-expand-lg navbar-custom mb-2">
     <div class="container d-flex justify-content-between">
       <a class="navbar-brand fw-bold text-white" href="/">HassleCare</a>
-      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services" id="search-input" style="max-width: 40rem;">
+      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services"
+        id="search-input" style="max-width: 40rem;">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -61,16 +62,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link fw-semibold" href="/login">Login</a>
+              <a class="nav-link fw-semibold" href="/login" id="login-header">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-semibold" href="/register">Register</a>
+              <a class="nav-link fw-semibold" href="/register" id="register-header">Register</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/business" style="display: none;">Business</a>
+              <a class="nav-link fw-semibold" href="/business" style="display: none;" id="business-header">Business</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/account" style="display: none;">Account</a>
+              <a class="nav-link fw-semibold" href="/account" style="display: none;" id="account-header">Account</a>
             </li>
           </ul>
         </div>
@@ -143,8 +144,6 @@
       <button id="accept-btn" class="btn btn-brand mx-1">Accept Order</button>
       <button id="cancel-btn" class="btn btn-outline-danger mx-1">Cancel Order</button>
     </div>
-
-
   </div>
 
   <footer class="bg-body-tertiary mt-auto py-4">
@@ -218,10 +217,7 @@
 
       // Make a fetch Post request when the page loads   
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me//business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        method: "PATCH"
       })
         .then((response) => {
           if (response.status === 200) {

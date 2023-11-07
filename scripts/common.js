@@ -49,23 +49,23 @@ function deleteAllCookies() {
 function toggleButtons() {
     const loginButton = document.getElementById('login-header');
     const registerButton = document.getElementById('register-header');
-    const accountButton = document.getElementById('welcome-header');
-    const logoutButton = document.getElementById('account-header');
+    const businessButton = document.getElementById('business-header');
+    const accountButton = document.getElementById('account-header');
 
     if (getCookie("sessionToken")) {
         loginButton.style.display = 'none';
         registerButton.style.display = 'none';
-        accountButton.style.display = 'inline';
-        logoutButton.style.display = 'inline';
+        businessButton.style.display = '';
+        accountButton.style.display = '';
     } else {
-        loginButton.style.display = 'inline';
-        registerButton.style.display = 'inline';
+        loginButton.style.display = '';
+        registerButton.style.display = '';
+        businessButton.style.display = 'none';
         accountButton.style.display = 'none';
-        logoutButton.style.display = 'none';
     }
 }
 
-// toggleButtons()
+toggleButtons()
 
 // Add event listener for search input in navbar
 document.getElementById("search-input").addEventListener('keyup', function (event) {
