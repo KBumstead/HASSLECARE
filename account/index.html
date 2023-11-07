@@ -201,13 +201,11 @@
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
   <script>
-    // Function to update the username and email fields with data from the server
     function updateFieldsWithData(data) {
       document.getElementById("username").value = data.username;
       document.getElementById("email").value = data.email;
     }
 
-    // Make a fetch GET request when the page loads
     fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}`, {
       method: "GET",
       headers: {
@@ -225,7 +223,6 @@
         }
       })
       .then((data) => {
-        // Update the username and email fields with the response data
         updateFieldsWithData(data);
       })
       .catch((error) => {
@@ -233,7 +230,6 @@
       });
 
     document.getElementById("logout-btn").addEventListener("click", function () {
-      // Send a fetch request to your logout URL
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/logout`, {
         method: "POST",
         headers: {},
@@ -243,13 +239,11 @@
             deleteAllCookies();
             window.location.href = "/login";
           } else {
-            // Logout failed, handle the error here
             document.getElementById("error-message").textContent = "Logout failed. Please try again.";
             throw new Error("Logout failed");
           }
         })
         .catch((error) => {
-          // Handle any errors
           console.error("Error:", error);
         });
     });
