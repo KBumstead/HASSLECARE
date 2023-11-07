@@ -101,3 +101,20 @@ function getOrderStatusClass(orderStatus) {
             return "text-bg-secondary"
     }
 }
+
+function getOrderStatusTextClass(orderStatus) {
+    switch (orderStatus) {
+        case "pending":
+            return "text-warning"
+        case "upcoming":
+            return "text-info"
+        case "ongoing":
+            return "text-primary"
+        case "finished":
+            return "text-success"
+        case "canceled":
+            return "text-danger"
+        default:
+            return "text-secondary"
+    }
+}

@@ -7,7 +7,6 @@
   <title>Document</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
   <style>
     .width10 {
       width: 15%;
@@ -82,8 +81,7 @@
   </nav>
 
   <div class="container">
-    <h2> <span style="color: green;">order</span> dog and cat grooming</h2>
-
+    <h2>Order details</h2>
     <div class="card" style="width: 100%;">
       <ul class="list-group list-group-flush ">
         <li class="list-group-item oddrow">
@@ -125,7 +123,7 @@
         <li class="list-group-item oddrow">
           <div class="d-flex flex-row oddrow">
             <div class="p-1 me-5 width10">Status</div>
-            <div class="p-1 me-5 text-warning" id="customerStatus">Pending</div>
+            <div class="p-1 me-5 fw-bold text-capitalize" id="customerStatus">Pending</div>
           </div>
         </li>
         <li class="list-group-item">
@@ -144,7 +142,7 @@
     </div>
 
     <div class="d-inline-flex my-3">
-      <button id="accept-btn" class="btn btn-outline-success mx-1">Accept Order</button>
+      <button id="accept-btn" class="btn btn-brand mx-1">Accept Order</button>
       <button id="cancel-btn" class="btn btn-outline-danger mx-1">Cancel Order</button>
     </div>
 
@@ -163,21 +161,33 @@
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
 
-
   <script>
+    const url = window.location.href;
+    const queryParams = new URLSearchParams(new URL(url).search);
 
     //GET
-
     function updateFieldsWithData(data) {
-      document.getElementById("customerDate").value = data.date; //WIP
-      document.getElementById("customerOrderedAt").value = data.orderedAt;
-      document.getElementById("customerStatus").value = data.status;
-      document.getElementById("customerserviceName").value = data.serviceName;
-      document.getElementById("customerserviceAddress").value = data.serviceAddress;
-      document.getElementById("customerNote").value = data.note;
-      document.getElementById("customerbusinessName").value = data.businessName;
-      document.getElementById("customerName").value = data.customerName;
-      document.getElementById("customerAddress").value = data.customerAddress;
+      const date = new Date(data.date)
+      const orderedAt = new Date(data.orderedAt)
+      document.getElementById("customerDate").textContent = `${getMonthName(date.getMonth())} ${date.getDate()}`;
+      document.getElementById("customerOrderedAt").textContent = `${getMonthName(orderedAt.getMonth())} ${orderedAt.getDate()}`;
+      document.getElementById("customerStatus").textContent = data.status;
+      document.getElementById("customerStatus").classList.add(getOrderStatusTextClass(data.status))
+      document.getElementById("customerserviceName").textContent = data.serviceName;
+      document.getElementById("customerserviceAddress").textContent = data.serviceAddress;
+      document.getElementById("customerNote").textContent = data.note;
+      document.getElementById("customerbusinessName").textContent = data.businessName;
+      document.getElementById("customerName").textContent = data.customerName;
+      document.getElementById("customerAddress").textContent = data.customerAddress;
+
+      // hide the 'Accept Order' button if status is not pending
+      if (data.status !== 'pending') {
+        document.getElementById("accept-btn").style.display = "none";
+      }
+      // hide the 'Cancel Order' button if status is finished or canceled
+      if (data.status === 'finished' || data.status === 'canceled') {
+        document.getElementById("cancel-btn").style.display = "none";
+      }
     }
 
     // Make a fetch GET request when the page loads
@@ -187,21 +197,16 @@
         "Content-Type": "application/json",
       },
     })
-
       .then((response) => {
         if (response.status === 200) {
           return response.json()
-        } else if (response.status === 400) {
-          window.location.href = "/business/order"
         } else if (response.status === 401) {
-          window.location.href = "/login"
-        } else if (response.status === 404) {
+          deleteAllCookies()
           window.location.href = "/login"
         } else {
-          window.location.href = "/create-order";
+          window.location.href = "/business";
         }
       })
-
       .then((data) => {
         updateFieldsWithData(data);
       })
@@ -209,18 +214,9 @@
         console.error("Error:", error);
       });
 
-  </script>
-
-
-
-
-  <script>
-    //PATCH accept button
+    // Patch accept button
     document.getElementById("accept-btn").addEventListener("click", function () {
       event.preventDefault();
-
-      const url = window.location.href;
-      const queryParams = new URLSearchParams(new URL(url).search);
 
       // Make a fetch Post request when the page loads   
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me//business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
@@ -243,19 +239,10 @@
           console.error("Error:", error);
         });
     });
-  </script>
 
-
-
-
-
-<script>
-  //DELETE delete button
-  document.getElementById("delete-btn").addEventListener("click", function () {
+    // Delete button
+    document.getElementById("cancel-btn").addEventListener("click", function () {
       event.preventDefault();
-
-      const url = window.location.href;
-      const queryParams = new URLSearchParams(new URL(url).search);
 
       // Make a Put request when the page loads
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
@@ -267,13 +254,9 @@
         .then((response) => {
           if (response.status === 204) {
             window.location.href = "/dashboard-orders";
-          } else if (response.status === 400) {
-            window.location.reload();
           } else if (response.status === 401) {
             deleteAllCookies();
             window.location.href = "/login";
-          } else if (response.status === 409) {
-            window.location.reload();
           } else {
             window.location.reload();
           }
@@ -282,13 +265,7 @@
           console.error("Error:", error);
         });
     });
-</script>
-
-
-
-
-
+  </script>
 </body>
-
 
 </html>

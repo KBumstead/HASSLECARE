@@ -222,8 +222,8 @@
 
         datas.forEach((data) => {
           const newOrderOverview = document.querySelector('.orders-item').cloneNode(true);
-          const date = new Date(data.date * 1000)
-          const orderedAt = new Date(data.orderedAt * 1000)
+          const date = new Date(data.date)
+          const orderedAt = new Date(data.orderedAt)
           newOrderOverview.style.display = "block";
           newOrderOverview.querySelector('.card-title').textContent = `${getMonthName(date.getMonth())} ${date.getDate()}`;
           newOrderOverview.querySelector('.card-subtitle').textContent = `Ordered at ${getMonthName(date.getMonth())} ${orderedAt.getDate()}`;
