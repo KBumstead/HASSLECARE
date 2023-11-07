@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Searching for Services</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -68,32 +69,30 @@
 
   <div class="container mt-5">
     <div class="row">
-      <!-- <div class="col-md-2"></div>  -->
       <div class="col-md-8 mb-3">
-        <h4>Showing Results for " ---- "</h4>
+        <h4 id="query-title">Showing Results for</h4>
       </div>
     </div>
 
-    <div class="row">
-      <!--Services Card-->
-      <div class="col-sm-12 col-md-6 col-lg-3 mb-4">
-        <a href="your-link-here" style="text-decoration: none; color: inherit;">
-          <div class="card">
-            <img src="your-image-source" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h4>$9.99</h5>              
-                <h5 class="card-title" id = "serviceName">Add Title Here</h5>
-                <h6><i class="fa-solid fa-store" style="color: #a4e100;" id="businessName"></i> Add store name</h6>
-                <h6><i class="fa-solid fa-location-dot" style="color: #ba3636;"  id = "businessLocation"></i> Add location</h6>
-
-            </div>
+    <div class="row row-cols-3 row-cols-lg-6 g-2" id="services-container">
+      <!-- Repeat the div for each card -->
+      <div class="col services-item" style="display: none; cursor: pointer;">
+        <div class="card">
+          <img class="card-img-top" alt="Service image" style="height: 8rem; width: auto; object-fit: cover;">
+          <div class="card-body">
+            <h4 class="service-price">$9.99</h4>
+            <h5 class="card-title">Add Title Here</h5>
+            <h6 class="business-name text-truncate">
+              <i class="fa-solid fa-store" style="color: #80cc28;"></i>
+              Add store name
+            </h6>
+            <h6 class="business-location text-truncate">
+              <i class="fa-solid fa-location-dot" style="color: red;"></i>
+              Add location
+            </h6>
           </div>
-        </a>
+        </div>
       </div>
-      <!-- End of a Card -->
-      <!-- Copy and paste more cards here -->
-
-
     </div>
   </div>
 
@@ -108,46 +107,56 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
+
+  <script>
+    const url = window.location.href;
+    const queryParams = new URLSearchParams(new URL(url).search);
+
+    // GET
+    function updateFieldsWithData(datas) {
+      const container = document.getElementById("services-container");
+      datas.forEach((data) => {
+        const newServiceOverview = document.querySelector('.services-item').cloneNode(true);
+        newServiceOverview.style.display = "block";
+        newServiceOverview.querySelector('img').src = data.image;
+        newServiceOverview.querySelector('.card-title').textContent = data.name;
+
+        const businessNameText = document.createTextNode(data.businessName);
+        const businessNameElement = newServiceOverview.querySelector('.business-name');
+        businessNameElement.replaceChild(businessNameText, businessNameElement.lastChild);
+
+        const businessLocationText = document.createTextNode(data.address);
+        const businessLocationElement = newServiceOverview.querySelector('.business-location');
+        businessLocationElement.replaceChild(businessLocationText, businessLocationElement.lastChild);
+
+        newServiceOverview.addEventListener("click", () => {
+          window.location.href = `/services/service?serviceId=${data.id}`;
+        });
+        container.appendChild(newServiceOverview);
+      })
+    }
+
+    // Make a fetch GET request when the page loads
+    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/services?q=${queryParams.get('q')}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.status == 200) {
+          return response.json();
+        } else {
+          throw new Error("Failed to retrieve service");
+        }
+      })
+      .then((data) => {
+        updateFieldsWithData(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  </script>
 </body>
-
-
-
-
-<script>
-
-  //GET
-  
-  function updateFieldsWithData(data) {
-     document.getElementById("serviceImage").value = data.image; //WIP
-     document.getElementById("serviceName").value = data.name;
-     document.getElementById("businessLocation").value = data.address;
-     document.getElementById("businessName").value = data.businessName;
-   }
-
-   // Make a fetch GET request when the page loads
-   fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/services`, {
-     method: "GET",
-     headers: {
-       "Content-Type": "application/json",
-     },
-   })
-     .then((response) => {
-       if (response.status == 200) {
-         return response.json();
-       } else {
-         throw new Error("Failed to retrieve service");
-       }
-     })
-     .then((data) => {
-       updateFieldsWithData(data);
-     })
-     .catch((error) => {
-       console.error("Error:", error);
-     });
-
-</script>
-
-
-
 
 </html>
