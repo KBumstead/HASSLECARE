@@ -33,7 +33,7 @@
     }
 
     .form-control {
-      width: 40rem;
+      max-width: 40rem;
     }
   </style>
 </head>
@@ -73,25 +73,29 @@
   <div class="container mt-5">
     <div class="row">
       <div class="col-4">
-        <img src="add-service-image" class="img-fluid" alt="add-service-image">
+        <img src="add-service-image" class="img-fluid" alt="add-service-image" id="serviceImage">
       </div>
       <div class="col-8">
-        <h2>Product Title</h2>
-        <h4>$9.99</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere augue cursus pretium luctus. Duis
+        <h2 id="serviceTitle">Service Title</h2>
+
+        <h4 id="servicePrice">$9.99</h4>
+
+        <p id="serviceDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere augue cursus
+          pretium luctus. Duis
           sollicitudin luctus urna. Cras sodales neque eget ornare vehicula. Cras lacinia tellus quis
           fringilla suscipit.</p>
-        <h6><i class="fa-solid fa-store" style="color: #a4e100;"></i> Add store name</h6>
-        <h6><i class="fa-solid fa-location-dot" style="color: #ba3636;"></i> Add location</h6>
+
+        <h6 id="businessName"><i class="fa-solid fa-store" style="color: #a4e100;"></i> Add store name</h6>
+        <h6 id="businessLocation"><i class="fa-solid fa-location-dot" style="color: #ba3636;"></i> Add location</h6>
         <h5>Select Address</h5>
-        <select class="form-select" aria-label="Default select example">
+        <select class="form-select" aria-label="Default select example" id="serviceAddress">
           <option selected>Select address</option>
           <option value="1">Add Address 1</option>
           <option value="2">Add Address 2</option>
           <option value="3">Add Address 3</option>
         </select>
         <h5 class="mt-3">Pick a Date</h5>
-        <input type="date" class="form-control">
+        <input type="date" class="form-control" id="serviceDate">
         <button class="btn btn-brand mt-3" id="order-btn">Place Order</button>
       </div>
     </div>
@@ -110,20 +114,22 @@
     crossorigin="anonymous"></script>
 
   <script>
+
+    const url = window.location.href;
+    const queryParams = new URLSearchParams(new URL(url).search);
+
     // Function to update the username and email fields with data from the server
-    function updateFieldsWithData(data) { //how i do this the shit don't have id?
-      document.getElementById("id").value = data.username;
-      document.getElementById("image").value = data.username;
-      document.getElementById("name").value = data.username;
-      document.getElementById("businessName").value = data.username;
-      document.getElementById("address").value = data.username;
-      document.getElementById("description").value = data.username;
-      document.getElementById("price").value = data.username;
-      document.getElementById("tags").value = data.username; //this dont have in the webpage
+    function updateFieldsWithData(data) {
+      document.getElementById("serviceImage").value = data.serviceImage;
+      document.getElementById("serviceTitle").value = data.servicesTitle;
+      document.getElementById("businessName").value = data.businessName;
+      document.getElementById("businessLocation").value = data.businessLocation;
+      document.getElementById("serviceDescription").value = data.serviceDescription;
+      document.getElementById("servicePrice").value = data.servicePrice;
     }
 
     // Make a fetch GET request when the page loads
-    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/services/${getCookie("serviceId")}`, {
+    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/services/${queryParams.get('serviceId')}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

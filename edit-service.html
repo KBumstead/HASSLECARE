@@ -33,7 +33,7 @@
     }
 
     .form-control {
-      width: 40rem;
+      max-width: 40rem;
     }
   </style>
 </head>
@@ -138,7 +138,7 @@
     }
 
     // Make a fetch GET request when the page loads
-    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services/${getCookie("serviceId")}`, {
+    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services/${queryParams.get('serviceId')}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -158,6 +158,11 @@
         console.error("Error:", error);
       });
 
+    document.getElementById("cancel-btn").addEventListener("click", function () {
+      event.preventDefault();
+      window.location.href = "/dashboard-orders"
+    })
+
     //PUT
     document.getElementById("update-btn").addEventListener("click", function () {
       event.preventDefault();
@@ -175,7 +180,6 @@
 
       // Create the payload
       const payload = {
-        serviceId: queryParams.get('serviceId'),
         image: productImage,
         name: serviceName,
         description: serviceDescription,
@@ -185,7 +189,7 @@
       };
 
       // Make a Put request when the page loads
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services/${getCookie("serviceId")}`, {
+      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services/${queryParams.get('serviceId')}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -207,8 +211,35 @@
         });
     });
 
+    //DELETE
+    document.getElementById("delete-btn").addEventListener("click", function () {
+      event.preventDefault();
 
-    
+      const url = window.location.href;
+      const queryParams = new URLSearchParams(new URL(url).search);
+
+      // Make a Put request when the page loads
+      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services/${queryParams.get('serviceId')}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.status === 204) {
+            window.location.href = "/dashboard-orders";
+          } else if (response.status === 401) {
+            deleteAllCookies();
+            window.location.href = "/login";
+          } else {
+            window.location.href = "/edit-service";
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+
   </script>
 
 </body>
