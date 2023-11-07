@@ -45,7 +45,7 @@ function deleteAllCookies() {
     }
 }
 
-// Function to toggle buttons based on the presence of a session cookie
+// Function to toggle navbar buttons based on the presence of a session cookie
 function toggleButtons() {
     const loginButton = document.getElementById('login-header');
     const registerButton = document.getElementById('register-header');
@@ -64,6 +64,14 @@ function toggleButtons() {
         logoutButton.style.display = 'none';
     }
 }
+
+// Add event listener for search input in navbar
+document.getElementById("search-input").addEventListener('keyup', function (event) {
+    event.preventDefault();
+    if (event.key === 'Enter') {
+        window.location.href = `/services/search?q=${document.getElementById("search-input").value}`;
+    }
+})
 
 function imageToBase64(file) {
     let base64String = null
