@@ -135,15 +135,15 @@
     </div>
   </div>
 
-  <div class="z-3 position-absolute bg-white top-0 start-0 bottom-0 end-0" id="loading-overlay">
-    <div class="position-relative top-50 start-50 spinner-border text-success m-auto" role="status"> </div>
-  </div>
-
   <footer class="bg-body-tertiary mt-auto py-4">
     <div class="container">
       <h6 class="text-center">Copyright HassleCare 2023</h6>
     </div>
   </footer>
+
+  <div class="z-3 position-absolute bg-white top-0 start-0 bottom-0 end-0" id="loading-overlay">
+    <div class="position-relative top-50 start-50 spinner-border text-success m-auto" role="status"> </div>
+  </div>
 
   <script src="/scripts/common.js"></script>
   <script src="https://kit.fontawesome.com/cb7394df23.js" crossorigin="anonymous"></script>
@@ -206,7 +206,6 @@
         method: "GET",
       })
         .then((response) => {
-          document.getElementById("loading-overlay").style.display = "none"
           if (response.ok) {
             return response.json();
           }
@@ -223,6 +222,7 @@
         })
         .then(data => {
           updateServicesInfo(data)
+          document.getElementById("loading-overlay").style.display = "none"
         })
         .catch(error => {
           console.error('Error:', error);
