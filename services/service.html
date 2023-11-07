@@ -78,9 +78,7 @@
       <div class="col-8">
         <h2 id="serviceTitle">Service Title</h2>
         <h4 id="servicePrice">$9.99</h4>
-        <p id="serviceDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere augue cursus
-          pretium luctus. Duis sollicitudin luctus urna. Cras sodales neque eget ornare vehicula. Cras lacinia tellus
-          quis fringilla suscipit.</p>
+        <p id="serviceDescription">Description</p>
         <h6 id="businessName"><i class="fa-solid fa-store" style="color: #80cc28;"></i> Add store name</h6>
         <h6 id="businessLocation"><i class="fa-solid fa-location-dot" style="color: red;"></i> Add location</h6>
         <button class="btn btn-brand mt-3" id="order-btn">Place Order</button>
@@ -106,7 +104,6 @@
 
     // Update fields
     function updateFieldsWithData(data) {
-      console.log(data)
       document.getElementById("serviceImage").src = data.image;
       document.getElementById("serviceTitle").textContent = data.name;
       document.getElementById("serviceDescription").textContent = data.description;
@@ -137,6 +134,7 @@
       })
       .then((data) => {
         updateFieldsWithData(data);
+        document.getElementById("loading-overlay").style.display = "none"
       })
       .catch((error) => {
         console.error("Error:", error);

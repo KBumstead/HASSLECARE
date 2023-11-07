@@ -177,7 +177,6 @@
       },
     })
       .then((response) => {
-        document.getElementById("loading-overlay").style.display = "none"
         if (response.ok) {
           return response.json();
         } else if (response.status === 401) {
@@ -189,6 +188,7 @@
       })
       .then((data) => {
         updateFieldsWithData(data);
+        document.getElementById("loading-overlay").style.display = "none"
       })
       .catch((error) => {
         console.error("Error:", error);

@@ -149,6 +149,10 @@
     </div>
   </footer>
 
+  <div class="z-3 position-absolute bg-white top-0 start-0 bottom-0 end-0" id="loading-overlay">
+    <div class="position-relative top-50 start-50 spinner-border text-success m-auto" role="status"> </div>
+  </div>
+
   <script>
     function showPaymentInfo(value) {
       if (value === 'card') {
@@ -182,7 +186,7 @@
       function updateFieldsWithData(data) {
         document.getElementById("subtotal-price").textContent = `Subtotal: $${data.price}`
         document.getElementById("platform-price").textContent = `Platform fee: $${0.6}`
-        document.getElementById("total-price").textContent = `Total: $${data.price + 0.6}`
+        document.getElementById("total-price").textContent = `Total: $${+data.price + 0.6}`
       }
 
       // GET
@@ -201,6 +205,7 @@
         })
         .then((data) => {
           updateFieldsWithData(data);
+          document.getElementById("loading-overlay").style.display = "none"
         })
         .catch((error) => {
           console.error("Error:", error);

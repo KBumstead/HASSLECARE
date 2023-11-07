@@ -78,7 +78,7 @@
         <div class="card">
           <img class="card-img-top" alt="Service image" style="height: 8rem; width: auto; object-fit: cover;">
           <div class="card-body">
-            <h4 class="service-price">$9.99</h4>
+            <!-- <h4 class="service-price">$9.99</h4> -->
             <h5 class="card-title">Add Title Here</h5>
             <h6 class="business-name text-truncate">
               <i class="fa-solid fa-store" style="color: #80cc28;"></i>
@@ -120,6 +120,7 @@
         newServiceOverview.style.display = "block";
         newServiceOverview.querySelector('img').src = data.image;
         newServiceOverview.querySelector('.card-title').textContent = data.name;
+        // newServiceOverview.querySelector('.service-price').textContent = `$ ${data.price}`;
 
         const businessNameText = document.createTextNode(data.businessName);
         const businessNameElement = newServiceOverview.querySelector('.business-name');
