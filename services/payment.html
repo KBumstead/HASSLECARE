@@ -210,12 +210,12 @@
       })
         .then((response) => {
           if (response.status === 201) {
-            window.location.href = "/OrderUpcoming.html";
+            window.location.href = "/account";
           } else if (response.status === 401) {
             deleteAllCookies();
             window.location.href = "/login";
           } else {
-            window.location.href = "/customer-confirm-order.html";
+            window.location.href = "/services/payment";
           }
         })
         .catch((error) => {
