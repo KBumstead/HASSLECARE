@@ -244,10 +244,7 @@
 
       // Make a Put request when the page loads
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        method: "DELETE"
       })
         .then((response) => {
           if (response.status === 204) {
