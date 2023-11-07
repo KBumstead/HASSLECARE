@@ -41,10 +41,11 @@
 </head>
 
 <body class="d-flex flex-column vh-100">
-  <nav class="navbar navbar-expand-lg navbar-custom mb-2">
+  <nav class="navbar navbar-expand-lg navbar-custom mb-5">
     <div class="container d-flex justify-content-between">
       <a class="navbar-brand fw-bold text-white" href="/">HassleCare</a>
-      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services" id="search-input" style="max-width: 40rem;">
+      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services"
+        id="search-input" style="max-width: 40rem;">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -87,21 +88,23 @@
                 d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
             </svg>
           </div>
-          <p class="card-text" id="username">lorep ipsum</p>
+          <p class="card-text" id="username"></p>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <div class="d-flex flex-column">
               <h6 class="card-title">Email</h6>
-              <p class="card-text" id="username">lorep ipsum</p>
+              <p class="card-text" id="email"></p>
             </div>
           </li>
           <li class="list-group-item">
             <div class="d-flex justify-content-center" style="width: 100%;">
-              <button type="button" class="btn btn-outline-success">Go to Business
-                Dashboard</button>
-              <button type="button" class="btn btn-success" style="display: none;">Create a Business
-                Account</button>
+              <button type="button" class="btn btn-outline-success" id="go-business" style="display: none;">
+                Go to Business Dashboard
+              </button>
+              <button type="button" class="btn btn-success" id="create-business" style="display: none;">
+                Create a Business Account
+              </button>
             </div>
           </li>
           <li class="list-group-item">
@@ -115,26 +118,29 @@
       </div>
     </div>
 
-    <div class="d-flex justify-content-center m-2" style="width: 100%;">
+    <div class="d-flex justify-content-center mt-5" style="width: 100%;">
       <h4>Orders</h4>
     </div>
     <div class="row row-cols-4 g-2">
-      <div class="col">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between">
-              <h5 class="card-title">Nov 11</h5>
-              <span class="badge text-bg-warning align-self-start">Pending</span>
+      <div class="row row-cols-1 row-cols-lg-4 g-2" id="orders-container">
+        <!-- Repeat the div for each card -->
+        <div class="col orders-item" style="display: none; cursor: pointer">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <h5 class="card-title">Nov 11</h5>
+                <span class="badge align-self-start text-capitalize">Pending</span>
+              </div>
+              <h6 class="card-subtitle mb-2 text-body-secondary">Ordered at Nov 6</h6>
+              <p class="card-text">Name of the service</p>
             </div>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-            <p class="card-text">name of the service lroep ipsum</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <footer class="bg-body-tertiary mt-3 py-4">
+  <footer class="bg-body-tertiary mt-auto py-4">
     <div class="container">
       <h6 class="text-center">Copyright HassleCare 2023</h6>
     </div>
@@ -145,10 +151,11 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
+
   <script>
     function updateFieldsWithData(data) {
-      document.getElementById("username").value = data.username;
-      document.getElementById("email").value = data.email;
+      document.getElementById("username").textContent = data.username;
+      document.getElementById("email").textContent = data.email;
     }
 
     fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}`, {
@@ -174,6 +181,20 @@
         console.error("Error:", error);
       });
 
+    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          document.getElementById("go-business").style.display = "";
+        } else {
+          document.getElementById("create-business").style.display = "";
+        }
+      })
+
     document.getElementById("logout-btn").addEventListener("click", function () {
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/logout`, {
         method: "POST",
@@ -193,8 +214,52 @@
         });
     });
 
-  </script>
+    function initOrdersInfo() {
+      function updateOrdersInfo(datas) {
+        const container = document.getElementById("orders-container");
 
+        datas.forEach((data) => {
+          const newOrderOverview = document.querySelector('.orders-item').cloneNode(true);
+          const date = new Date(data.date)
+          const orderedAt = new Date(data.orderedAt)
+          newOrderOverview.style.display = "block";
+          newOrderOverview.querySelector('.card-title').textContent = `${getMonthName(date.getMonth())} ${date.getDate()}`;
+          newOrderOverview.querySelector('.card-subtitle').textContent = `Ordered at ${getMonthName(date.getMonth())} ${orderedAt.getDate()}`;
+          newOrderOverview.querySelector('.badge').textContent = data.status;
+          newOrderOverview.querySelector('.badge').classList.add(getOrderStatusClass(data.status));
+          newOrderOverview.querySelector('.card-text').textContent = data.serviceName;
+          newOrderOverview.addEventListener("click", () => {
+            window.location.href = `/business/order?orderId=${data.id}`;
+          });
+          container.appendChild(newOrderOverview);
+        })
+      }
+
+      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/orders`, {
+        method: "GET",
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          else if (response.status === 401) {
+            deleteAllCookies();
+            window.location.href = "/login";
+          }
+          else {
+            window.location.reload();
+          }
+        })
+        .then(data => {
+          updateOrdersInfo(data)
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    initOrdersInfo()
+  </script>
 </body>
 
 </html>

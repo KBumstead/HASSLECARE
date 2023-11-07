@@ -65,6 +65,8 @@ function toggleButtons() {
     }
 }
 
+toggleButtons()
+
 // Add event listener for search input in navbar
 document.getElementById("search-input").addEventListener('keyup', function (event) {
     event.preventDefault();
