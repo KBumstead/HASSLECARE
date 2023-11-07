@@ -166,7 +166,10 @@
       event.preventDefault();
 
       // Get the input values
-      const serviceImage = await imageToBase64(document.getElementById("serviceImage").files[0]);
+      const serviceImageElement = document.getElementById("serviceImage");
+      console.log(serviceImageElement.files.length)
+      const serviceImage = serviceImageElement.files.length > 0 ? await imageToBase64(serviceImageElement.files[0]) :
+        document.getElementById("previewImage").src;
       const serviceName = document.getElementById("serviceName").value;
       const serviceDescription = document.getElementById("serviceDescription").value;
       const serviceAddress = document.getElementById("serviceAddress").value;
@@ -230,7 +233,7 @@
             deleteAllCookies();
             window.location.href = "/login";
           } else {
-            window.location.href = "/business/services/edit";
+            window.location.reload();
           }
         })
         .catch((error) => {

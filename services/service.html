@@ -113,11 +113,11 @@
       document.getElementById("servicePrice").textContent = `$ ${data.price}`;
 
       const businessNameText = document.createTextNode(data.businessName);
-      const businessNameElement = newServiceOverview.getElementById('businessName');
+      const businessNameElement = document.getElementById('businessName');
       businessNameElement.replaceChild(businessNameText, businessNameElement.lastChild);
 
       const businessLocationText = document.createTextNode(data.address);
-      const businessLocationElement = newServiceOverview.getElementById('businessLocation');
+      const businessLocationElement = document.getElementById('businessLocation');
       businessLocationElement.replaceChild(businessLocationText, businessLocationElement.lastChild);
     }
 

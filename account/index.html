@@ -121,19 +121,17 @@
     <div class="d-flex justify-content-center mt-5" style="width: 100%;">
       <h4>Orders</h4>
     </div>
-    <div class="row row-cols-4 g-2">
-      <div class="row row-cols-1 row-cols-lg-4 g-2" id="orders-container">
-        <!-- Repeat the div for each card -->
-        <div class="col orders-item" style="display: none; cursor: pointer">
-          <div class="card">
-            <div class="card-body">
-              <div class="d-flex justify-content-between">
-                <h5 class="card-title">Nov 11</h5>
-                <span class="badge align-self-start text-capitalize">Pending</span>
-              </div>
-              <h6 class="card-subtitle mb-2 text-body-secondary">Ordered at Nov 6</h6>
-              <p class="card-text">Name of the service</p>
+    <div class="row row-cols-1 row-cols-lg-4 g-2" id="orders-container">
+      <!-- Repeat the div for each card -->
+      <div class="col orders-item" style="display: none; cursor: pointer">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title">Nov 11</h5>
+              <span class="badge align-self-start text-capitalize">Pending</span>
             </div>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Ordered at Nov 6</h6>
+            <p class="card-text">Name of the service</p>
           </div>
         </div>
       </div>
@@ -239,7 +237,7 @@
           newOrderOverview.querySelector('.badge').classList.add(getOrderStatusClass(data.status));
           newOrderOverview.querySelector('.card-text').textContent = data.serviceName;
           newOrderOverview.addEventListener("click", () => {
-            window.location.href = `/business/order?orderId=${data.id}`;
+            window.location.href = `/account/order?orderId=${data.id}`;
           });
           container.appendChild(newOrderOverview);
         })

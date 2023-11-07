@@ -77,15 +77,20 @@ document.getElementById("search-input").addEventListener('keyup', function (even
 
 function imageToBase64(file) {
     return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = function () {
-            const base64String = reader.result; // Extract base64 string
-            resolve(base64String);
-        };
-        reader.onerror = function (error) {
-            reject(error);
-        };
-        reader.readAsDataURL(file);
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const base64String = reader.result; // Extract base64 string
+                resolve(base64String);
+            };
+            reader.onerror = function (error) {
+                reject(error);
+            };
+            reader.readAsDataURL(file);
+        }
+        else {
+            resolve(null)
+        }
     });
 }
 
