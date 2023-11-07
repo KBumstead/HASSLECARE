@@ -120,12 +120,12 @@
 
     // Function to update the username and email fields with data from the server
     function updateFieldsWithData(data) {
-      document.getElementById("serviceImage").value = data.serviceImage;
-      document.getElementById("serviceTitle").value = data.servicesTitle;
+      document.getElementById("serviceImage").value = data.image;
+      document.getElementById("serviceTitle").value = data.name;
       document.getElementById("businessName").value = data.businessName;
-      document.getElementById("businessLocation").value = data.businessLocation;
-      document.getElementById("serviceDescription").value = data.serviceDescription;
-      document.getElementById("servicePrice").value = data.servicePrice;
+      document.getElementById("businessLocation").value = data.address;
+      document.getElementById("serviceDescription").value = data.description;
+      document.getElementById("servicePrice").value = data.price;
     }
 
     // Make a fetch GET request when the page loads
@@ -143,7 +143,6 @@
         }
       })
       .then((data) => {
-        // Update the username and email fields with the response data
         updateFieldsWithData(data);
       })
       .catch((error) => {
