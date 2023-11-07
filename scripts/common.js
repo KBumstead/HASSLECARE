@@ -65,5 +65,27 @@ function toggleButtons() {
     }
 }
 
-// Call the toggleButtons function when the page loads
-toggleButtons();
+function getMonthName(monthId) {
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    return monthNames[monthId]
+}
+
+function getOrderStatusClass(orderStatus) {
+    switch (orderStatus) {
+        case "pending":
+            return "text-bg-warning"
+        case "upcoming":
+            return "text-bg-info"
+        case "ongoing":
+            return "text-bg-primary"
+        case "finished":
+            return "text-bg-success"
+        case "canceled":
+            return "text-bg-danger"
+        default:
+            return "text-bg-secondary"
+    }
+}

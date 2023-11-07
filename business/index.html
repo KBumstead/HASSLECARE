@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard Services</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -35,7 +36,7 @@
 </head>
 
 <body class="d-flex flex-column vh-100">
-  <nav class="navbar navbar-expand-lg navbar-custom">
+  <nav class="navbar navbar-expand-lg navbar-custom mb-3">
     <div class="container d-flex justify-content-between">
       <a class="navbar-brand fw-bold text-white" href="/">HassleCare</a>
       <form class="d-flex flex-grow-1" role="search" style="max-width: 40rem;">
@@ -66,18 +67,22 @@
     </div>
   </nav>
 
-  <div class="container">
-    <!-- Business info div -->
-    <div class="row justify-content-center">
-      <div class="col-lg-8 mb-4">
-        <div class="card mt-4 mb-3">
-          <div class="card-body">
-            <h1 class="card-title">Business Info</h1>
-            <h3>Business Name <a href="#"><i class="fas fa-pencil-alt" style="color: black;"></i></a></h3>
-            <p class="card-text">Business Description</p>
-            <p><i class="fas fa-map-marker-alt"></i> Business Location</p>
-            <p><i class="fas fa-tags"></i> Business Tags</p>
+  <div class="container mb-3">
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="card">
+        <h5 class="card-header">
+          Business Info
+        </h5>
+        <div class="card-body">
+          <div class="d-flex flex-row">
+            <h5 class="card-title me-2 align-self-center" id="name">Alice's Petcare</h5>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-pencil align-self-center" viewBox="0 0 16 16">
+              <path
+                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+            </svg>
           </div>
+          <p class="card-text" id="description">Business description</p>
         </div>
       </div>
     </div>
@@ -85,40 +90,48 @@
     <!-- Tabs Between services and orders-->
     <ul class="nav nav-tabs mb-3">
       <li class="nav-item">
-        <a class="nav-link active" id="services-tab" data-toggle="tab" href="#services">Services</a>
+        <a class="nav-link active" id="services-tab" data-bs-toggle="tab" data-bs-target="#services-tab-pane"
+          style="color: #80cc28; cursor: pointer;">Services</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" style="color: #80cc28;">Orders</a>
+        <a class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders-tab-pane"
+          style="color: #80cc28; cursor: pointer;">Orders</a>
       </li>
     </ul>
 
-    <!-- Tab content -->
     <div class="tab-content">
-      <div class="tab-pane fade show active" id="services">
-        <!-- Button to create new services -->
+      <div class="tab-pane fade show active" id="services-tab-pane">
         <button type="button" class="btn btn-brand mt-3 mb-3">Create a new service</button>
-
-        <!-- Business Services Cards -->
-        <div class="row row-cols-1 row-cols-md-4 g-4">
-          <!-- copy here -->
-          <div class="col">
+        <div class="row row-cols-3 row-cols-lg-5 g-2" id="services-container">
+          <!-- Repeat the div for each card -->
+          <div class="col services-item" style="display: none; cursor: pointer;">
             <div class="card">
-              <img src="..." class="card-img-top" alt="image of the services">
+              <img class="card-img-top" alt="image of the services"
+                style="height: 8rem; width: auto; object-fit: cover;">
               <div class="card-body">
                 <h5 class="card-title">Name of the service</h5>
                 <p class="card-text">Service Description</p>
               </div>
             </div>
           </div>
-          <!-- Repeat the above div for each card -->
         </div>
-
-
       </div>
-      <div class="tab-pane fade" id="orders">
-
-        <!-- Add orders here -->
-
+      <div class="tab-pane fade" id="orders-tab-pane">
+        <div class="row row-cols-1 row-cols-lg-4 g-2" id="orders-container">
+          <!-- Repeat the div for each card -->
+          <div class="col orders-item" style="display: none; cursor: pointer">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <h5 class="card-title">Nov 11</h5>
+                  <span class="badge align-self-start text-capitalize">Pending</span>
+                </div>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Ordered at Nov 6</h6>
+                <p class="card-text">Name of the service</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -134,6 +147,123 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
+  <script>
+    function initBusinessInfo() {
+      function updateBusinessInfo(data) {
+        document.getElementById('name').textContent = data.name;
+        document.getElementById('description').textContent = data.description;
+      }
+
+      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}`, {
+        method: "GET",
+        header: {},
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          else if (response.status === 401) {
+            deleteAllCookies();
+            window.location.href = "/login";
+          }
+          else {
+            window.location.reload();
+          }
+        })
+        .then(data => {
+          updateBusinessInfo(data)
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    function initServicesInfo() {
+      function updateServicesInfo(datas) {
+        const container = document.getElementById("services-container");
+        datas.forEach((data) => {
+          const newServiceOverview = document.querySelector('.services-item').cloneNode(true);
+          newServiceOverview.style.display = "block";
+          newServiceOverview.querySelector('.card-title').textContent = data.name;
+          newServiceOverview.querySelector('img').src = data.image;
+          newServiceOverview.addEventListener("click", () => {
+            window.location.href = `/business/services/edit?serviceId=${data.id}`;
+          });
+          container.appendChild(newServiceOverview);
+        })
+      }
+
+      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services`, {
+        method: "GET",
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          else if (response.status === 401) {
+            deleteAllCookies();
+            window.location.href = "/login";
+          }
+          else {
+            window.location.reload();
+          }
+        })
+        .then(data => {
+          updateBusinessInfo(data)
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    function initOrdersInfo() {
+      function updateOrdersInfo(datas) {
+        const container = document.getElementById("orders-container");
+
+        datas.forEach((data) => {
+          const newOrderOverview = document.querySelector('.orders-item').cloneNode(true);
+          const date = new Date(data.date * 1000)
+          const orderedAt = new Date(data.orderedAt * 1000)
+          newOrderOverview.style.display = "block";
+          newOrderOverview.querySelector('.card-title').textContent = `${getMonthName(date.getMonth())} ${date.getDate()}`;
+          newOrderOverview.querySelector('.card-subtitle').textContent = `Ordered at ${getMonthName(date.getMonth())} ${orderedAt.getDate()}`;
+          newOrderOverview.querySelector('.badge').textContent = data.status;
+          newOrderOverview.querySelector('.badge').classList.add(getOrderStatusClass(data.status));
+          newOrderOverview.querySelector('.card-text').textContent = data.serviceName;
+          newOrderOverview.addEventListener("click", () => {
+            window.location.href = `/business/order?orderId=${data.id}`;
+          });
+          container.appendChild(newOrderOverview);
+        })
+      }
+
+      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders`, {
+        method: "GET",
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          else if (response.status === 401) {
+            deleteAllCookies();
+            window.location.href = "/login";
+          }
+          else {
+            window.location.reload();
+          }
+        })
+        .then(data => {
+          updateOrdersInfo(data)
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    initBusinessInfo()
+    initServicesInfo()
+    initOrdersInfo()
+  </script>
 </body>
 
 </html>
