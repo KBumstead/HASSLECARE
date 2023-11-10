@@ -71,35 +71,36 @@
 
   <div class="container">
     <h2 class="mt-5">Create a new service</h2>
-    <div class="form-group">
-      <label for="productImage">Image</label>
-      <input type="file" class="form-control" id="productImage">
-    </div>
     <form>
       <div class="form-group">
+        <label for="productImage">Image</label>
+        <input type="file" class="form-control" accept="image/*" id="productImage" required>
+      </div>
+      <div class="form-group">
         <label for="productName">Name</label>
-        <input type="text" class="form-control" id="productName" placeholder="Enter name">
+        <input type="text" class="form-control" id="productName" placeholder="Enter name" required>
       </div>
       <div class="form-group">
         <label for="productDescription">Description</label>
-        <textarea class="form-control" id="productDescription" rows="3"></textarea>
+        <textarea class="form-control" id="productDescription" rows="3" required></textarea>
       </div>
       <div class="form-group">
         <label for="productAddress">Address</label>
-        <input type="text" class="form-control" id="productAddress" placeholder="Enter address">
+        <input type="text" class="form-control" id="productAddress" placeholder="Enter address" required>
       </div>
       <div class="form-group">
         <label for="productPrice">Price</label>
-        <input type="number" class="form-control" id="productPrice" placeholder="Enter price">
+        <input type="number" class="form-control" id="productPrice" placeholder="Enter price" required step="0.001">
       </div>
       <div class="form-group">
         <label for="productTags">Tags</label>
-        <input type="text" class="form-control" id="productTags" placeholder="Enter tags">
+        <input type="text" class="form-control" id="productTags" placeholder="Enter tags" required>
       </div>
 
       <button type="submit" class="btn btn-brand mt-3" id="create-btn">Create</button>
       <button type="submit" class="btn btn-outline-secondary mt-3" id="cancel-btn">Cancel</button>
     </form>
+    <p class="text-danger fw-semibold" id="error-message"> </p>
   </div>
 
   <footer class="bg-body-tertiary mt-auto py-4">
@@ -116,26 +117,34 @@
 
   <script>
     document.getElementById("create-btn").addEventListener("click", async function () {
-      event.preventDefault();
-      // Get the input values
-      const productImage = await imageToBase64(document.getElementById("productImage").files[0]);
-      const productName = document.getElementById("productName").value;
-      const productDescription = document.getElementById("productDescription").value;
-      const productAddress = document.getElementById("productAddress").value;
-      const productPrice = document.getElementById("productPrice").value;
-      const productTags = document.getElementById("productTags").value;
+      // Get the input elements
+      const imageElement = document.getElementById("productImage");
+      const nameElement = document.getElementById("productName");
+      const descriptionElement = document.getElementById("productDescription");
+      const addressElement = document.getElementById("productAddress");
+      const priceElement = document.getElementById("productPrice");
+      const tagsElement = document.getElementById("productTags");
+
+      // Check validity
+      if (!imageElement.checkValidity()) return;
+      if (!nameElement.checkValidity()) return;
+      if (!descriptionElement.checkValidity()) return;
+      if (!addressElement.checkValidity()) return;
+      if (!priceElement.checkValidity()) return;
+      if (!tagsElement.checkValidity()) return;
+      event.preventDefault()
 
       // Create the payload
       const payload = {
-        image: productImage,
-        name: productName,
-        description: productDescription,
-        address: productAddress,
-        price: productPrice,
-        tags: productTags,
+        image: await imageToBase64(imageElement.files[0]),
+        name: nameElement.value,
+        description: descriptionElement.value,
+        address: addressElement.value,
+        price: priceElement.value,
+        tags: tagsElement.value,
       };
 
-      // Make a fetch Post request when the page loads
+      // Call API Endpoint
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services`, {
         method: "POST",
         headers: {
@@ -150,7 +159,8 @@
             deleteAllCookies();
             window.location.href = "/login";
           } else {
-            window.location.href = "/business/services/create";
+            document.getElementById("error-message").textContent = "Failed to create service. Try to refresh the page";
+            throw new Error(response.status);
           }
         })
         .catch((error) => {

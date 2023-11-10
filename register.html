@@ -70,7 +70,7 @@
     </div>
   </nav>
 
-  <div class="container mt-5">
+  <div class="container my-auto">
     <div class="card mx-auto" style="max-width: 40rem;">
       <h5 class="card-header">
         Register
@@ -79,29 +79,30 @@
         <form>
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="username" class="form-control" id="username" aria-describedby="username">
+            <input type="username" class="form-control" id="username" aria-describedby="username" required>
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+            <input type="email" class="form-control" id="email" aria-describedby="email" required>
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password">
+            <input type="password" class="form-control" id="password" required>
           </div>
           <div class="mb-3">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="" id="checkAgree" required>
+            <label class="form-check-label" for="checkAgree">
               I agree with the terms and conditions
             </label>
           </div>
           <button type="submit" class="btn btn-brand mb-3" id="create-btn">Submit</button>
+          <p class="text-danger fw-semibold" id="error-message"> </p>
         </form>
       </div>
     </div>
   </div>
 
-  <footer class="bg-body-tertiary mt-auto py-4">
+  <footer class="bg-body-tertiary mt-3 py-4">
     <div class="container">
       <h6 class="text-center">Copyright HassleCare 2023</h6>
     </div>
@@ -114,18 +115,24 @@
 
   <script>
     document.getElementById("create-btn").addEventListener("click", function () {
-      event.preventDefault();
+      // Get the input elements
+      const usernameElement = document.getElementById("username");
+      const emailElement = document.getElementById("email");
+      const passwordElement = document.getElementById("password");
+      const checkElement = document.getElementById("checkAgree");
 
-      // Get the input values
-      const username = document.getElementById("username").value;
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+      // Check validity
+      if (!usernameElement.checkValidity()) return;
+      if (!emailElement.checkValidity()) return;
+      if (!passwordElement.checkValidity()) return;
+      if (!checkElement.checkValidity()) return;
+      event.preventDefault();
 
       // Create the payload
       const payload = {
-        username: username,
-        email: email,
-        password: password,
+        username: usernameElement.value,
+        email: emailElement.value,
+        password: passwordElement.value,
       };
 
       // Send a fetch request to your desired URL
@@ -139,6 +146,8 @@
         .then((response) => {
           if (response.ok) {
             window.location.href = "/login";
+          } else if (response.status === 409) {
+            document.getElementById("error-message").textContent = "Email address already used by another account";
           } else {
             throw new Error("Registration failed");
           }

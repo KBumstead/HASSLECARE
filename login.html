@@ -79,21 +79,21 @@
         Login
       </h5>
       <div class="card-body">
-        <form>
+        <form class="needs-validation">
           <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password">
+            <input type="password" class="form-control" id="password" required>
           </div>
           <button type="submit" class="btn btn-brand mb-3" id="login-btn">Submit</button>
           <p class="text-secondary">
             Don't have an account?
-            <a class="register-link" href="/register.html">Register</a>
+            <a class="register-link" href="/register">Register</a>
           </p>
-          <p class="text-danger" id="error-message"> </p>
+          <p class="text-danger fw-semibold" id="error-message"> </p>
         </form>
       </div>
     </div>
@@ -111,19 +111,22 @@
     crossorigin="anonymous"></script>
   <script>
     document.getElementById("login-btn").addEventListener("click", function () {
-      event.preventDefault();
+      // Get the input elements
+      const emailElement = document.getElementById("email");
+      const passwordElement = document.getElementById("password");
 
-      // Get the input values
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+      // Check validity
+      if (!emailElement.checkValidity()) return;
+      if (!passwordElement.checkValidity()) return;
+      event.preventDefault()
 
       // Create the payload
       const payload = {
-        email: email,
-        password: password,
+        email: emailElement.value,
+        password: passwordElement.value,
       };
 
-      // Send a fetch request to your login URL
+      // Call API endpoint
       fetch("https://alert-tourmaline-pantydraco.glitch.me/accounts/login", {
         method: "POST",
         headers: {
@@ -135,9 +138,8 @@
           if (response.ok) {
             return response.json();
           } else {
-            // Login failed, handle the error here
             document.getElementById("error-message").textContent = "Login failed. Please check your credentials.";
-            throw new Error("Login failed");
+            throw new Error(response.status);
           }
         })
         .then((body) => {
@@ -148,7 +150,6 @@
           window.location.href = "/account";
         })
         .catch((error) => {
-          // Handle any errors
           console.error("Error:", error);
         });
     });

@@ -73,26 +73,40 @@
 
   <div class="container mt-5">
     <h4>Order Confirmation</h4>
-    <h2>Product Title</h2>
-    <h4>$9.99</h4>
-    <h6><i class="fa-solid fa-store" style="color: #80cc28;"></i> Add store name</h6>
-    <h6><i class="fa-solid fa-location-dot" style="color: red;"></i> Add location</h6>
+    <h2 id="service-name">Service Name</h2>
+    <h4 id="service-price">$ 9.99</h4>
+    <div class="d-flex">
+      <div style="width: 2rem;">
+        <i class="fa-solid fa-store" style="color: #80cc28;"></i>
+      </div>
+      <h6 id="service-business-name">
+        Add store name
+      </h6>
+    </div>
+    <div class="d-flex">
+      <div style="width: 2rem;">
+        <i class="fa-solid fa-location-dot" style="color: red;"></i>
+      </div>
+      <h6 id="service-address">
+        Add location
+      </h6>
+    </div>
     <form>
       <div class="mb3">
         <label for="address">Address</label>
-        <input type="text" class="form-control" id="address" placeholder="Enter address">
+        <input type="text" class="form-control" id="address" placeholder="Enter address" required>
       </div>
       <div class="mb-3">
         <label for="date" class="form-label">Pick a Date</label>
-        <input type="date" class="form-control" id="date">
+        <input type="date" class="form-control" id="date" required>
       </div>
       <div class="mb-3">
         <label for="time" class="form-label">Pick a Time</label>
-        <input type="time" class="form-control" id="time">
+        <input type="time" class="form-control" id="time" required>
       </div>
       <div class="mb-3">
         <label for="note" class="form-label">Note</label>
-        <textarea class="form-control" placeholder="Leave a comment here" id="note" style="height: 100px;"></textarea>
+        <textarea class="form-control" placeholder="Leave a comment here" id="note" rows="3" required></textarea>
       </div>
 
       <div class="mb-3">
@@ -141,15 +155,16 @@
       <button type="submit" class="btn btn-brand mt-3 mb-5" id="pay-btn">Pay & Confirm</button>
       <button type="submit" class="btn btn-outline-secondary mt-3 mb-5" id="cancel-btn">Cancel</button>
     </form>
+    <p class="text-danger fw-semibold" id="error-message"> </p>
   </div>
 
-  <footer class="bg-body-tertiary mt-auto py-4">
+  <footer class="bg-body-tertiary mt-3 py-4">
     <div class="container">
       <h6 class="text-center">Copyright HassleCare 2023</h6>
     </div>
   </footer>
 
-  <div class="z-3 position-absolute bg-white top-0 start-0 bottom-0 end-0" id="loading-overlay">
+  <div class="z-3 position-fixed bg-white top-0 start-0 bottom-0 end-0" id="loading-overlay">
     <div class="position-relative top-50 start-50 spinner-border text-success m-auto" role="status"> </div>
   </div>
 
@@ -184,9 +199,13 @@
 
     function initOrderSummary() {
       function updateFieldsWithData(data) {
-        document.getElementById("subtotal-price").textContent = `Subtotal: $${data.price}`
-        document.getElementById("platform-price").textContent = `Platform fee: $${0.6}`
-        document.getElementById("total-price").textContent = `Total: $${+data.price + 0.6}`
+        document.getElementById("service-name").textContent = data.name;
+        document.getElementById("service-price").textContent = `$ ${data.price}`;
+        document.getElementById("service-business-name").textContent = data.businessName;
+        document.getElementById("service-address").textContent = data.address;
+        document.getElementById("subtotal-price").textContent = `Subtotal: $${data.price}`;
+        document.getElementById("platform-price").textContent = `Platform fee: $${0.6}`;
+        document.getElementById("total-price").textContent = `Total: $${+data.price + 0.6}`;
       }
 
       // GET
@@ -215,25 +234,30 @@
     initOrderSummary();
 
     document.getElementById("pay-btn").addEventListener("click", function () {
+      // Get the input elements
+      const addressElement = document.getElementById("address");
+      const dateElement = document.getElementById("date");
+      const timeElement = document.getElementById("time");
+      const noteElement = document.getElementById("note");
+      
+      // Check validity
+      if (!addressElement.checkValidity()) return;
+      if (!dateElement.checkValidity()) return;
+      if (!timeElement.checkValidity()) return;
+      if (!noteElement.checkValidity()) return;
       event.preventDefault();
-
-      // Get the input values
-      const address = document.getElementById("address").value;
-      const date = document.getElementById("date").value;
-      const time = document.getElementById("time").value;
-      const note = document.getElementById("note").value;
-      const dateUnixTimestamp = new Date(`${date}T${time}`).getTime();
-
+      
       // Create the payload
+      const dateUnixTimestamp = new Date(`${dateElement.value}T${timeElement.value}`).getTime();
       const payload = {
         date: dateUnixTimestamp,
-        note: note,
+        note: noteElement.value,
         serviceId: queryParams.get('serviceId'),
         customerAccountId: getCookie("accountId"),
-        customerAddress: address,
+        customerAddress: addressElement.value,
       };
 
-      // Make a fetch Post request when the page loads
+      // Call API endpoint
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/orders`, {
         method: "POST",
         headers: {
@@ -248,7 +272,8 @@
             deleteAllCookies();
             window.location.href = "/login";
           } else {
-            window.location.href = `/services/payment?q=${queryParams.get("q")}`;
+            document.getElementById("error-message").textContent = "Failed to place order. Try to refresh the page";
+            throw new Error(response.status)
           }
         })
         .catch((error) => {

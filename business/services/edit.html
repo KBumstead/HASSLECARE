@@ -74,30 +74,30 @@
     <div class="row">
       <div class="col-md-8">
         <h2>Edit a service</h2>
-        <div class="form-group">
-          <label for="serviceImage">Image</label>
-          <input type="file" class="form-control" id="serviceImage">
-        </div>
         <form>
           <div class="form-group">
+            <label for="serviceImage">Image</label>
+            <input type="file" class="form-control" accept="image/*" id="serviceImage">
+          </div>
+          <div class="form-group">
             <label for="serviceName">Name</label>
-            <input type="text" class="form-control" id="serviceName" placeholder="Enter name">
+            <input type="text" class="form-control" id="serviceName" placeholder="Enter name" required>
           </div>
           <div class="form-group">
             <label for="serviceDescription">Description</label>
-            <textarea class="form-control" id="serviceDescription" rows="3"></textarea>
+            <textarea class="form-control" id="serviceDescription" rows="3" required></textarea>
           </div>
           <div class="form-group">
             <label for="serviceAddress">Address</label>
-            <input type="text" class="form-control" id="serviceAddress" placeholder="Enter address">
+            <input type="text" class="form-control" id="serviceAddress" placeholder="Enter address" required>
           </div>
           <div class="form-group">
             <label for="servicePrice">Price</label>
-            <input type="number" class="form-control" id="servicePrice" placeholder="Enter price">
+            <input type="number" class="form-control" id="servicePrice" placeholder="Enter price" required step="0.001">
           </div>
           <div class="form-group">
             <label for="serviceTags">Tags</label>
-            <input type="text" class="form-control" id="serviceTags" placeholder="Enter tags">
+            <input type="text" class="form-control" id="serviceTags" placeholder="Enter tags" required>
           </div>
 
           <!-- Buttons -->
@@ -105,9 +105,9 @@
           <button type="submit" class="btn btn-outline-secondary mt-3" id="cancel-btn">Cancel</button>
           <button type="submit" class="btn btn-outline-danger mt-3" id="delete-btn">Delete Service</button>
         </form>
+        <p class="text-danger fw-semibold" id="error-message"> </p>
       </div>
       <div class="col-md-4">
-
         <!-- Existing Image -->
         <img src="" alt="Service image" class="img-fluid" id="previewImage">
       </div>
@@ -168,30 +168,36 @@
 
     //PUT
     document.getElementById("update-btn").addEventListener("click", async function () {
-      event.preventDefault();
-
-      // Get the input values
+      // Get the input elements
       const serviceImageElement = document.getElementById("serviceImage");
-      console.log(serviceImageElement.files.length)
       const serviceImage = serviceImageElement.files.length > 0 ? await imageToBase64(serviceImageElement.files[0]) :
         document.getElementById("previewImage").src;
-      const serviceName = document.getElementById("serviceName").value;
-      const serviceDescription = document.getElementById("serviceDescription").value;
-      const serviceAddress = document.getElementById("serviceAddress").value;
-      const servicePrice = document.getElementById("servicePrice").value;
-      const serviceTags = document.getElementById("serviceTags").value;
+      const serviceNameElement = document.getElementById("serviceName");
+      const serviceDescriptionElement = document.getElementById("serviceDescription");
+      const serviceAddressElement = document.getElementById("serviceAddress");
+      const servicePriceElement = document.getElementById("servicePrice");
+      const serviceTagsElement = document.getElementById("serviceTags");
+
+      // Check validity
+      if (serviceImageElement.files.length > 0 && !serviceImageElement.checkValidity()) return;
+      if (!serviceNameElement.checkValidity()) return;
+      if (!serviceDescriptionElement.checkValidity()) return;
+      if (!serviceAddressElement.checkValidity()) return;
+      if (!servicePriceElement.checkValidity()) return;
+      if (!serviceTagsElement.checkValidity()) return;
+      event.preventDefault();
 
       // Create the payload
       const payload = {
         image: serviceImage,
-        name: serviceName,
-        description: serviceDescription,
-        address: serviceAddress,
-        price: servicePrice,
-        tags: serviceTags,
+        name: serviceNameElement.value,
+        description: serviceDescriptionElement.value,
+        address: serviceAddressElement.value,
+        price: servicePriceElement.value,
+        tags: serviceTagsElement.value,
       };
 
-      // Make a Put request when the page loads
+      // Call API Endpoint
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services/${queryParams.get('serviceId')}`, {
         method: "PUT",
         headers: {
@@ -206,7 +212,8 @@
             deleteAllCookies();
             window.location.href = "/login";
           } else {
-            window.location.href = "/business";
+            document.getElementById("error-message").textContent = "Failed to edit service. Try to refresh the page";
+            throw new Error(response.status);
           }
         })
         .catch((error) => {
@@ -224,7 +231,7 @@
     document.getElementById("delete-btn").addEventListener("click", function () {
       event.preventDefault();
 
-      // Make a Put request when the page loads
+      // Call API endpoint
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services/${queryParams.get('serviceId')}`, {
         method: "DELETE"
       })
