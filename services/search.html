@@ -79,15 +79,23 @@
           <img class="card-img-top" alt="Service image" style="height: 8rem; width: auto; object-fit: cover;">
           <div class="card-body">
             <!-- <h4 class="service-price">$9.99</h4> -->
-            <h5 class="card-title">Add Title Here</h5>
-            <h6 class="business-name text-truncate">
-              <i class="fa-solid fa-store" style="color: #80cc28;"></i>
-              Add store name
-            </h6>
-            <h6 class="business-location text-truncate">
-              <i class="fa-solid fa-location-dot" style="color: red;"></i>
-              Add location
-            </h6>
+            <h5 class="card-title">Service name</h5>
+            <div class="d-flex">
+              <div class="text-center" style="width: 1.5rem;">
+                <i class="fa-solid fa-store" style="color: #80cc28;"></i>
+              </div>
+              <h6 class="business-name text-truncate">
+                Business name
+              </h6>
+            </div>
+            <div class="d-flex">
+              <div class="text-center" style="width: 1.5rem;">
+                <i class="fa-solid fa-location-dot" style="color: red;"></i>
+              </div>
+              <h6 class="service-address text-truncate">
+                Service address
+              </h6>
+            </div>
           </div>
         </div>
       </div>
@@ -121,14 +129,8 @@
         newServiceOverview.querySelector('img').src = data.image;
         newServiceOverview.querySelector('.card-title').textContent = data.name;
         // newServiceOverview.querySelector('.service-price').textContent = `$ ${data.price}`;
-
-        const businessNameText = document.createTextNode(data.businessName);
-        const businessNameElement = newServiceOverview.querySelector('.business-name');
-        businessNameElement.replaceChild(businessNameText, businessNameElement.lastChild);
-
-        const businessLocationText = document.createTextNode(data.address);
-        const businessLocationElement = newServiceOverview.querySelector('.business-location');
-        businessLocationElement.replaceChild(businessLocationText, businessLocationElement.lastChild);
+        newServiceOverview.querySelector('.business-name').textContent = data.businessName;
+        newServiceOverview.querySelector('.service-address').textContent = data.address;
 
         newServiceOverview.addEventListener("click", () => {
           window.location.href = `/services/service?serviceId=${data.id}`;
