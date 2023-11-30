@@ -142,6 +142,8 @@
 
     <div class="d-inline-flex my-3">
       <button id="accept-btn" class="btn btn-brand mx-1">Accept Order</button>
+      <button id="ongoing-btn" class="btn btn-brand mx-1">Update status to Ongoing</button>
+      <button id="finish-btn" class="btn btn-brand mx-1">Update status to Finished</button>
       <button id="cancel-btn" class="btn btn-outline-danger mx-1">Cancel Order</button>
       <button id="back-btn" class="btn btn-secondary mx-1">Back to Account Dashboard</a>
     </div>
@@ -186,6 +188,14 @@
       if (data.status !== 'pending') {
         document.getElementById("accept-btn").style.display = "none";
       }
+      // hide the 'Update to Ongoing' button if status is not upcoming
+      if (data.status !== 'upcoming') {
+        document.getElementById("ongoing-btn").style.display = "none";
+      }
+      // hide the 'Update to Finished' button if status is not ongoing
+      if (data.status !== 'ongoing') {
+        document.getElementById("finish-btn").style.display = "none";
+      }
       // hide the 'Cancel Order' button if status is finished or canceled
       if (data.status === 'finished' || data.status === 'canceled') {
         document.getElementById("cancel-btn").style.display = "none";
@@ -214,13 +224,71 @@
         console.error("Error:", error);
       });
 
-    // Patch accept button
+    // Patch accept (pending to upcoming) button
     document.getElementById("accept-btn").addEventListener("click", function () {
       event.preventDefault();
 
       // Make a fetch Post request when the page loads   
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
-        method: "PATCH"
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: 'upcoming' })
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            window.location.reload();
+          } else if (response.status === 401) {
+            deleteAllCookies();
+            window.location.href = "/login";
+          } else {
+            window.location.reload();
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+
+    // Patch ongoing (upcoming to ongoing) button
+    document.getElementById("ongoing-btn").addEventListener("click", function () {
+      event.preventDefault();
+
+      // Make a fetch Post request when the page loads   
+      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: 'ongoing' })
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            window.location.reload();
+          } else if (response.status === 401) {
+            deleteAllCookies();
+            window.location.href = "/login";
+          } else {
+            window.location.reload();
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+
+    // Patch finish (ongoing to finished) button
+    document.getElementById("finish-btn").addEventListener("click", function () {
+      event.preventDefault();
+
+      // Make a fetch Post request when the page loads   
+      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: 'finished' })
       })
         .then((response) => {
           if (response.status === 200) {
