@@ -171,8 +171,8 @@
     function updateFieldsWithData(data) {
       const date = new Date(data.date)
       const orderedAt = new Date(data.orderedAt)
-      document.getElementById("customerDate").textContent = `${getMonthName(date.getMonth())} ${date.getDate()}`;
-      document.getElementById("customerOrderedAt").textContent = `${getMonthName(orderedAt.getMonth())} ${orderedAt.getDate()}`;
+      document.getElementById("customerDate").textContent = getOrderDateFormat(date);
+      document.getElementById("customerOrderedAt").textContent = getOrderDateFormat(orderedAt);
       document.getElementById("customerStatus").textContent = data.status;
       document.getElementById("customerStatus").classList.add(getOrderStatusTextClass(data.status))
       document.getElementById("customerserviceName").textContent = data.serviceName;

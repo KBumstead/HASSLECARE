@@ -94,6 +94,19 @@ function imageToBase64(file) {
     });
 }
 
+function getOrderDateFormat(date) {
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+    };
+    const formattedDate = date.toLocaleString('en-US', options);
+    return formattedDate;
+}
+
 function getMonthName(monthId) {
     const monthNames = [
         "January", "February", "March", "April", "May", "June",
