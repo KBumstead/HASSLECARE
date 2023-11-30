@@ -72,7 +72,20 @@
       </div>
     </div>
 
-    <div class="row row-cols-3 row-cols-lg-6 g-2" id="services-container">
+    <div id="loading">
+      <h5 class="placeholder-glow">
+        <span class="placeholder col-6"></span>
+      </h5>
+      <p class="placeholder-glow">
+        <span class="placeholder col-7"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-6"></span>
+        <span class="placeholder col-8"></span>
+      </p>
+    </div>
+
+    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-6 g-2" id="services-container">
       <!-- Repeat the div for each card -->
       <div class="col services-item" style="display: none; cursor: pointer;">
         <div class="card">
@@ -154,6 +167,7 @@
         }
       })
       .then((data) => {
+        document.getElementById("loading").style.display = "none";
         updateFieldsWithData(data);
       })
       .catch((error) => {
