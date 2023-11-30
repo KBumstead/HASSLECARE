@@ -152,8 +152,8 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-brand mt-3 mb-5" id="pay-btn">Pay & Confirm</button>
-      <button type="submit" class="btn btn-outline-secondary mt-3 mb-5" id="cancel-btn">Cancel</button>
+      <button class="btn btn-brand mt-3 mb-5" id="pay-btn">Pay & Confirm</button>
+      <button class="btn btn-outline-secondary mt-3 mb-5" id="cancel-btn">Cancel</button>
     </form>
     <p class="text-danger fw-semibold" id="error-message"> </p>
   </div>
@@ -280,6 +280,12 @@
           console.error("Error:", error);
         });
     });
+
+    document.getElementById("cancel-btn").addEventListener("click", function () {
+      event.preventDefault();
+      if (history.length > 1) history.back();
+      else window.location.href = "/"
+    })
   </script>
 </body>
 
