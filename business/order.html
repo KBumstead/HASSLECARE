@@ -141,10 +141,30 @@
     </div>
 
     <div class="d-inline-flex my-3">
-      <button id="accept-btn" class="btn btn-brand mx-1">Accept Order</button>
-      <button id="ongoing-btn" class="btn btn-brand mx-1">Update status to Ongoing</button>
-      <button id="finish-btn" class="btn btn-brand mx-1">Update status to Finished</button>
-      <button id="cancel-btn" class="btn btn-outline-danger mx-1">Cancel Order</button>
+      <button id="accept-btn" class="btn btn-brand mx-1">
+        Accept Order
+        <span id="accept-btn-spinner" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+          <span class="visually-hidden">Loading...</span>
+        </span>
+      </button>
+      <button id="ongoing-btn" class="btn btn-brand mx-1">
+        Update status to Ongoing
+        <span id="ongoing-btn-spinner" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+          <span class="visually-hidden">Loading...</span>
+        </span>
+      </button>
+      <button id="finish-btn" class="btn btn-brand mx-1">
+        Update status to Finished
+        <span id="finish-btn-spinner" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+          <span class="visually-hidden">Loading...</span>
+        </span>
+      </button>
+      <button id="cancel-btn" class="btn btn-outline-danger mx-1">
+        Cancel Order
+        <span id="cancel-btn-spinner" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+          <span class="visually-hidden">Loading...</span>
+        </span>
+      </button>
       <button id="back-btn" class="btn btn-secondary mx-1">Back to Account Dashboard</a>
     </div>
   </div>
@@ -228,6 +248,10 @@
     document.getElementById("accept-btn").addEventListener("click", function () {
       event.preventDefault();
 
+      // Disable button
+      disableAllButton();
+      document.getElementById("accept-btn-spinner").style.display = "inline-block"
+
       // Make a fetch Post request when the page loads   
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
         method: "PATCH",
@@ -254,6 +278,10 @@
     // Patch ongoing (upcoming to ongoing) button
     document.getElementById("ongoing-btn").addEventListener("click", function () {
       event.preventDefault();
+
+      // Disable button
+      disableAllButton();
+      document.getElementById("ongoing-btn-spinner").style.display = "inline-block"
 
       // Make a fetch Post request when the page loads   
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
@@ -282,6 +310,10 @@
     document.getElementById("finish-btn").addEventListener("click", function () {
       event.preventDefault();
 
+      // Disable button
+      disableAllButton();
+      document.getElementById("finish-btn-spinner").style.display = "inline-block"
+
       // Make a fetch Post request when the page loads   
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
         method: "PATCH",
@@ -309,9 +341,17 @@
     document.getElementById("cancel-btn").addEventListener("click", function () {
       event.preventDefault();
 
+      // Disable button
+      disableAllButton();
+      document.getElementById("cancel-btn-spinner").style.display = "inline-block"
+
       // Make a Put request when the page loads
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
-        method: "DELETE"
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: 'canceled' })
       })
         .then((response) => {
           if (response.status === 204) {
@@ -333,6 +373,14 @@
       event.preventDefault()
       window.location.href = "/business"
     })
+
+    function disableAllButton() {
+      document.getElementById("accept-btn").disabled = true;
+      document.getElementById("ongoing-btn").disabled = true;
+      document.getElementById("finish-btn").disabled = true;
+      document.getElementById("cancel-btn").disabled = true;
+      document.getElementById("back-btn").disabled = true;
+    }
   </script>
 </body>
 

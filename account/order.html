@@ -85,64 +85,69 @@
       <ul class="list-group list-group-flush ">
         <li class="list-group-item oddrow">
           <div class="d-flex flex-row oddrow">
-            <div class="p-1 me-5 width10">Services</div>
-            <div class="p-1 me-5" id="customerserviceName">Dog and cat grooming</div>
+            <div class="p-1 me-4 width10 flex-shrink-0">Services</div>
+            <div class="p-1 me-2" id="customerserviceName">Dog and cat grooming</div>
           </div>
         </li>
         <li class="list-group-item">
           <div class="d-flex flex-row ">
-            <div class="p-1 me-5 width10">Service owner</div>
-            <div class="p-1 me-5" id="customerbusinessName">Alice's Petcare</div>
+            <div class="p-1 me-4 width10 flex-shrink-0">Service owner</div>
+            <div class="p-1 me-2" id="customerbusinessName">Alice's Petcare</div>
           </div>
         </li>
         <li class="list-group-item oddrow">
           <div class="d-flex flex-row oddrow">
-            <div class="p-1 me-5 width10">Location</div>
-            <div class="p-1 me-5" id="customerserviceAddress">Peach Street</div>
+            <div class="p-1 me-4 width10 flex-shrink-0">Location</div>
+            <div class="p-1 me-2" id="customerserviceAddress">Peach Street</div>
           </div>
         </li>
         <li class="list-group-item">
           <div class="d-flex flex-row">
-            <div class="p-1 me-5 width10">Date</div>
-            <div class="p-1 me-5" id="customerDate">Nov 11</div>
+            <div class="p-1 me-4 width10 flex-shrink-0">Date</div>
+            <div class="p-1 me-2" id="customerDate">Nov 11</div>
           </div>
         </li>
         <li class="list-group-item oddrow">
           <div class="d-flex flex-row oddrow">
-            <div class="p-1 me-5 width10">Ordered at</div>
-            <div class="p-1 me-5" id="customerOrderedAt">Nov 9</div>
+            <div class="p-1 me-4 width10 flex-shrink-0">Ordered at</div>
+            <div class="p-1 me-2" id="customerOrderedAt">Nov 9</div>
           </div>
         </li>
         <li class="list-group-item ">
-          <div class="d-flex flex-row ">
-            <div class="p-1 me-5 width10">Note</div>
-            <div class="p-1 me-5" id="customerNote">My dog is a bit wild</div>
+          <div class="d-flex flex-row">
+            <div class="p-1 me-4 width10 flex-shrink-0">Note</div>
+            <div class="p-1 me-2" id="customerNote">My dog is a bit wild</div>
           </div>
         </li>
         <li class="list-group-item oddrow">
           <div class="d-flex flex-row oddrow">
-            <div class="p-1 me-5 width10">Status</div>
-            <div class="p-1 me-5 fw-bold text-capitalize" id="customerStatus">Pending</div>
+            <div class="p-1 me-4 width10 flex-shrink-0">Status</div>
+            <div class="p-1 me-2 fw-bold text-capitalize" id="customerStatus">Pending</div>
           </div>
         </li>
         <li class="list-group-item">
           <div class="d-flex flex-row">
-            <div class="p-1 me-5 width10">Ordered by</div>
-            <div class="p-1 me-5" id="customerName">veen</div>
+            <div class="p-1 me-4 width10 flex-shrink-0">Ordered by</div>
+            <div class="p-1 me-2" id="customerName">veen</div>
           </div>
         </li>
         <li class="list-group-item oddrow">
           <div class="d-flex flex-row oddrow">
-            <div class="p-1 me-5 width10">Order location</div>
-            <div class="p-1 me-5" id="customerAddress">Orchard Street</div>
+            <div class="p-1 me-4 width10 flex-shrink-0">Order location</div>
+            <div class="p-1 me-2" id="customerAddress">Orchard Street</div>
           </div>
         </li>
       </ul>
     </div>
 
     <div class="d-inline-flex my-3">
-      <button class="btn btn-secondary mx-1" id="back-btn">Back to Account Dashboard</a>
-      <button class="btn btn-outline-danger mx-1" id="cancel-btn">Cancel Order</a>
+      <button class="btn btn-secondary mx-1" id="back-btn">Back to Account Dashboard</button>
+      <button class="btn btn-outline-danger mx-1" id="cancel-btn">
+        Cancel Order
+        <span id="cancel-btn-spinner" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+          <span class="visually-hidden">Loading...</span>
+        </span>
+      </button>
     </div>
 
   </div>
@@ -216,6 +221,11 @@
     // Delete button
     document.getElementById("cancel-btn").addEventListener("click", function () {
       event.preventDefault();
+
+      // Disable button
+      document.getElementById("cancel-btn").disabled = true;
+      document.getElementById("back-btn").disabled = true;
+      document.getElementById("cancel-btn-spinner").style.display = "inline-block"
 
       // Make a Put request when the page loads
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
