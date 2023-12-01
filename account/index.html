@@ -230,6 +230,9 @@
       function updateOrdersInfo(datas) {
         const container = document.getElementById("orders-container");
 
+        sortOrdersInPlace(datas);
+        datas.reverse();
+
         datas.forEach((data) => {
           const newOrderOverview = document.querySelector('.orders-item').cloneNode(true);
           const date = new Date(data.date)

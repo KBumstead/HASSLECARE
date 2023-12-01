@@ -94,6 +94,29 @@ function imageToBase64(file) {
     });
 }
 
+function sortOrdersInPlace(datas) {
+    datas.sort((a, b) => {
+        // Sort by status: canceled comes last, finished comes second to last
+        const statusOrder = getOrderStatusOrder(b.status) - getOrderStatusOrder(a.status);
+        // If statuses are the same, sort by date in ascending order
+        const dateOrder = new Date(a.date) - new Date(b.date);
+        // Combine both criteria
+        return statusOrder || dateOrder;
+    });
+
+    // Function to get the order for different status values
+    function getOrderStatusOrder(status) {
+        switch (status) {
+            case 'canceled':
+                return 3; // Arbitrary value to put canceled last
+            case 'finished':
+                return 2; // Arbitrary value to put finished second to last
+            default:
+                return 1; // Default value for other statuses
+        }
+    }
+}
+
 function getOrderDateFormat(date) {
     const options = {
         year: 'numeric',
