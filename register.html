@@ -71,7 +71,7 @@
   </nav>
 
   <div class="container my-auto">
-    <div class="card mx-auto" style="max-width: 40rem;">
+    <div class="card shadow-sm mx-auto" style="max-width: 40rem;">
       <h5 class="card-header">
         Register
       </h5>
@@ -95,8 +95,13 @@
               I agree with the terms and conditions
             </label>
           </div>
-          <button type="submit" class="btn btn-brand mb-3" id="create-btn">Submit</button>
-          <p class="text-danger fw-semibold" id="error-message"> </p>
+          <button type="submit" class="btn btn-brand mb-3" id="create-btn">
+            Submit
+            <span id="create-btn-spinner" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+              <span class="visually-hidden">Loading...</span>
+            </span>
+          </button>
+          <p class="text-danger fw-semibold" id="error-message"></p>
         </form>
       </div>
     </div>
@@ -128,6 +133,10 @@
       if (!checkElement.checkValidity()) return;
       event.preventDefault();
 
+      // Disable button
+      document.getElementById("create-btn").disabled = true;
+      document.getElementById("create-btn-spinner").style.display = "inline-block"
+
       // Create the payload
       const payload = {
         username: usernameElement.value,
@@ -154,6 +163,11 @@
         })
         .catch((error) => {
           console.error("Error:", error);
+        })
+        .finally(() => {
+          // Enable button
+          document.getElementById("login-btn").disabled = false;
+          document.getElementById("login-btn-spinner").style.display = "none"
         });
     });
   </script>

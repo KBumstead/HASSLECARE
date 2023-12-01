@@ -73,7 +73,7 @@
     </div>
   </nav>
 
-  <div class="container mt-5">
+  <div class="container my-auto">
     <div class="card mx-auto" style="max-width: 40rem;">
       <h5 class="card-header">
         Login
@@ -88,18 +88,23 @@
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" required>
           </div>
-          <button type="submit" class="btn btn-brand mb-3" id="login-btn">Submit</button>
+          <button type="submit" class="btn btn-brand mb-3" id="login-btn">
+            Submit
+            <span id="login-btn-spinner" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+              <span class="visually-hidden">Loading...</span>
+            </span>
+          </button>
           <p class="text-secondary">
             Don't have an account?
             <a class="register-link" href="/register">Register</a>
           </p>
-          <p class="text-danger fw-semibold" id="error-message"> </p>
+          <p class="text-danger fw-semibold" id="error-message"></p>
         </form>
       </div>
     </div>
   </div>
 
-  <footer class="bg-body-tertiary mt-auto py-4">
+  <footer class="bg-body-tertiary mt-3 py-4">
     <div class="container">
       <h6 class="text-center">Copyright HassleCare 2023</h6>
     </div>
@@ -119,6 +124,10 @@
       if (!emailElement.checkValidity()) return;
       if (!passwordElement.checkValidity()) return;
       event.preventDefault()
+
+      // Disable button
+      document.getElementById("login-btn").disabled = true;
+      document.getElementById("login-btn-spinner").style.display = "inline-block"
 
       // Create the payload
       const payload = {
@@ -151,6 +160,11 @@
         })
         .catch((error) => {
           console.error("Error:", error);
+        })
+        .finally(() => {
+          // Enable button
+          document.getElementById("login-btn").disabled = false;
+          document.getElementById("login-btn-spinner").style.display = "none"
         });
     });
   </script>
