@@ -108,15 +108,15 @@
         <div id="service-not-found" style="display: none">
           <h5>You have no services</h5>
         </div>
-        <div class="row row-cols-3 row-cols-lg-5 g-2" id="services-container">
+        <div class="row row-cols-3 row-cols-lg-5 g-2" id="services-container" style="grid-auto-rows: 1fr">
           <!-- Repeat the div for each card -->
           <div class="col services-item" style="display: none; cursor: pointer;">
-            <div class="card">
+            <div class="card h-100">
               <img class="card-img-top" alt="image of the services"
                 style="height: 8rem; width: auto; object-fit: cover;">
               <div class="card-body">
                 <h5 class="card-title">Name of the service</h5>
-                <p class="card-text">Service Description</p>
+                <!-- <p class="card-text">Service Description</p> -->
               </div>
             </div>
           </div>
@@ -201,6 +201,9 @@
     function initServicesInfo() {
       function updateServicesInfo(datas) {
         const container = document.getElementById("services-container");
+
+        datas.reverse();
+
         datas.forEach((data) => {
           const newServiceOverview = document.querySelector('.services-item').cloneNode(true);
           newServiceOverview.style.display = "block";
