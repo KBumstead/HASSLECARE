@@ -101,9 +101,19 @@
           </div>
 
           <!-- Buttons -->
-          <button type="submit" class="btn btn-brand mt-3" id="update-btn">Update</button>
+          <button type="submit" class="btn btn-brand mt-3" id="update-btn">
+            Update
+            <span id="update-btn-spinner" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+              <span class="visually-hidden">Loading...</span>
+            </span>
+          </button>
+          <button type="submit" class="btn btn-outline-danger mt-3" id="delete-btn">
+            Delete Service
+            <span id="delete-btn-spinner" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+              <span class="visually-hidden">Loading...</span>
+            </span>
+          </button>
           <button type="submit" class="btn btn-outline-secondary mt-3" id="cancel-btn">Cancel</button>
-          <button type="submit" class="btn btn-outline-danger mt-3" id="delete-btn">Delete Service</button>
         </form>
         <p class="text-danger fw-semibold" id="error-message"> </p>
       </div>
@@ -187,6 +197,12 @@
       if (!serviceTagsElement.checkValidity()) return;
       event.preventDefault();
 
+      // Disable button
+      document.getElementById("update-btn").disabled = true;
+      document.getElementById("delete-btn").disabled = true;
+      document.getElementById("cancel-btn").disabled = true;
+      document.getElementById("update-btn-spinner").style.display = "inline-block"
+
       // Create the payload
       const payload = {
         image: serviceImage,
@@ -218,18 +234,23 @@
         })
         .catch((error) => {
           console.error("Error:", error);
+        })
+        .finally(() => {
+          // Enable button
+          document.getElementById("update-btn").disabled = false;
+          document.getElementById("update-btn-spinner").style.display = "none"
         });
     });
-
-    // Cancel
-    document.getElementById("cancel-btn").addEventListener("click", function () {
-      event.preventDefault();
-      window.location.href = "/business"
-    })
 
     // Delete
     document.getElementById("delete-btn").addEventListener("click", function () {
       event.preventDefault();
+
+      // Disable button
+      document.getElementById("update-btn").disabled = true;
+      document.getElementById("delete-btn").disabled = true;
+      document.getElementById("cancel-btn").disabled = true;
+      document.getElementById("delete-btn-spinner").style.display = "inline-block"
 
       // Call API endpoint
       fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services/${queryParams.get('serviceId')}`, {
@@ -247,8 +268,19 @@
         })
         .catch((error) => {
           console.error("Error:", error);
+        })
+        .finally(() => {
+          // Enable button
+          document.getElementById("delete-btn").disabled = false;
+          document.getElementById("delete-btn-spinner").style.display = "none"
         });
     });
+
+    // Cancel
+    document.getElementById("cancel-btn").addEventListener("click", function () {
+      event.preventDefault();
+      window.location.href = "/business"
+    })
 
   </script>
 

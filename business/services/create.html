@@ -97,7 +97,12 @@
         <input type="text" class="form-control" id="productTags" placeholder="Enter tags" required>
       </div>
 
-      <button type="submit" class="btn btn-brand mt-3" id="create-btn">Create</button>
+      <button type="submit" class="btn btn-brand mt-3" id="create-btn">
+        Create
+        <span id="create-btn-spinner" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+          <span class="visually-hidden">Loading...</span>
+        </span>
+      </button>
       <button type="submit" class="btn btn-outline-secondary mt-3" id="cancel-btn">Cancel</button>
     </form>
     <p class="text-danger fw-semibold" id="error-message"> </p>
@@ -134,6 +139,10 @@
       if (!tagsElement.checkValidity()) return;
       event.preventDefault()
 
+      // Disable button
+      document.getElementById("create-btn").disabled = true;
+      document.getElementById("create-btn-spinner").style.display = "inline-block"
+
       // Create the payload
       const payload = {
         image: await imageToBase64(imageElement.files[0]),
@@ -165,6 +174,11 @@
         })
         .catch((error) => {
           console.error("Error:", error);
+        })
+        .finally(() => {
+          // Enable button
+          document.getElementById("create-btn").disabled = false;
+          document.getElementById("create-btn-spinner").style.display = "none"
         });
     });
 
