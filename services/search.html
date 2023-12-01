@@ -39,7 +39,8 @@
   <nav class="navbar navbar-expand-lg navbar-custom">
     <div class="container d-flex justify-content-between">
       <a class="navbar-brand fw-bold text-white" href="/">HassleCare</a>
-      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services" id="search-input" style="max-width: 40rem;">
+      <input class="form-control" type="search" placeholder="Search services" aria-label="Search services"
+        id="search-input" style="max-width: 40rem;">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -83,6 +84,11 @@
         <span class="placeholder col-6"></span>
         <span class="placeholder col-8"></span>
       </p>
+    </div>
+
+    <!-- Show if no services found -->
+    <div id="not-found" style="display: none">
+      <h5>No services match</h5>
     </div>
 
     <div class="row row-cols-2 row-cols-md-3 row-cols-xl-6 g-2" id="services-container">
@@ -167,8 +173,9 @@
         }
       })
       .then((data) => {
+        if (data.length > 0) updateFieldsWithData(data);
+        else document.getElementById("not-found").style.display = "block";
         document.getElementById("loading").style.display = "none";
-        updateFieldsWithData(data);
       })
       .catch((error) => {
         console.error("Error:", error);

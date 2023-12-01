@@ -104,6 +104,10 @@
     <div class="tab-content">
       <div class="tab-pane fade show active" id="services-tab-pane">
         <button type="button" class="btn btn-brand mt-3 mb-3" id="create-service-btn">Create a new service</button>
+        <!-- Show if no services found -->
+        <div id="service-not-found" style="display: none">
+          <h5>You have no services</h5>
+        </div>
         <div class="row row-cols-3 row-cols-lg-5 g-2" id="services-container">
           <!-- Repeat the div for each card -->
           <div class="col services-item" style="display: none; cursor: pointer;">
@@ -119,6 +123,10 @@
         </div>
       </div>
       <div class="tab-pane fade" id="orders-tab-pane">
+        <!-- Show if no services found -->
+        <div id="order-not-found" style="display: none">
+          <h5>You have no orders</h5>
+        </div>
         <div class="row row-cols-1 row-cols-lg-4 g-2" id="orders-container">
           <!-- Repeat the div for each card -->
           <div class="col orders-item" style="display: none; cursor: pointer">
@@ -224,7 +232,8 @@
           }
         })
         .then(data => {
-          updateServicesInfo(data)
+          if (data.length > 0) updateServicesInfo(data);
+          else document.getElementById("service-not-found").style.display = "block";
           document.getElementById("loading-overlay").style.display = "none"
         })
         .catch(error => {
@@ -272,7 +281,8 @@
           }
         })
         .then(data => {
-          updateOrdersInfo(data)
+          if (data.length > 0) updateOrdersInfo(data);
+          else document.getElementById("order-not-found").style.display = "block";
         })
         .catch(error => {
           console.error('Error:', error);
