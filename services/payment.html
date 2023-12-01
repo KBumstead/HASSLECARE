@@ -92,7 +92,7 @@
       </h6>
     </div>
     <form>
-      <div class="mb3">
+      <div class="mb-3">
         <label for="address">Address</label>
         <input type="text" class="form-control" id="address" placeholder="Enter address" required>
       </div>
@@ -152,7 +152,12 @@
         </div>
       </div>
 
-      <button class="btn btn-brand mt-3 mb-5" id="pay-btn">Pay & Confirm</button>
+      <button class="btn btn-brand mt-3 mb-5" id="order-btn">
+        Order & Confirm
+        <span id="order-btn-spinner" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+          <span class="visually-hidden">Loading...</span>
+        </span>
+      </button>
       <button class="btn btn-outline-secondary mt-3 mb-5" id="cancel-btn">Cancel</button>
     </form>
     <p class="text-danger fw-semibold" id="error-message"> </p>
@@ -233,7 +238,7 @@
 
     initOrderSummary();
 
-    document.getElementById("pay-btn").addEventListener("click", function () {
+    document.getElementById("order-btn").addEventListener("click", function () {
       // Get the input elements
       const addressElement = document.getElementById("address");
       const dateElement = document.getElementById("date");
@@ -246,6 +251,11 @@
       if (!timeElement.checkValidity()) return;
       if (!noteElement.checkValidity()) return;
       event.preventDefault();
+
+      // Disable button
+      document.getElementById("order-btn").disabled = true;
+      document.getElementById("cancel-btn").disabled = true;
+      document.getElementById("order-btn-spinner").style.display = "inline-block"
       
       // Create the payload
       const dateUnixTimestamp = new Date(`${dateElement.value}T${timeElement.value}`).getTime();
@@ -278,6 +288,11 @@
         })
         .catch((error) => {
           console.error("Error:", error);
+        })
+        .finally(() => {
+          // Enable button
+          document.getElementById("order-btn").disabled = false;
+          document.getElementById("order-btn-spinner").style.display = "none"
         });
     });
 
