@@ -155,7 +155,7 @@
     }
 
     // Make a fetch GET request when the page loads
-    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services/${queryParams.get('serviceId')}`, {
+    fetchWithSession(`${window.CONFIG.BASE_URL}/business/${getCookie("accountId")}/services/${queryParams.get('serviceId')}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -214,7 +214,7 @@
       };
 
       // Call API Endpoint
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services/${queryParams.get('serviceId')}`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/business/${getCookie("accountId")}/services/${queryParams.get('serviceId')}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -253,7 +253,7 @@
       document.getElementById("delete-btn-spinner").style.display = "inline-block"
 
       // Call API endpoint
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services/${queryParams.get('serviceId')}`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/business/${getCookie("accountId")}/services/${queryParams.get('serviceId')}`, {
         method: "DELETE"
       })
         .then((response) => {

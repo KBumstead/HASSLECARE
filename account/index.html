@@ -169,7 +169,7 @@
       document.getElementById("email").textContent = data.email;
     }
 
-    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}`, {
+    fetchWithSession(`${window.CONFIG.BASE_URL}/accounts/${getCookie("accountId")}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -193,7 +193,7 @@
         console.error("Error:", error);
       });
 
-    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}`, {
+    fetchWithSession(`${window.CONFIG.BASE_URL}/business/${getCookie("accountId")}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -208,7 +208,7 @@
       })
 
     document.getElementById("logout-btn").addEventListener("click", function () {
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/logout`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/accounts/${getCookie("accountId")}/logout`, {
         method: "POST",
         headers: {},
       })
@@ -250,7 +250,7 @@
         })
       }
 
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/orders`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/accounts/${getCookie("accountId")}/orders`, {
         method: "GET",
       })
         .then((response) => {

@@ -189,7 +189,7 @@
       }
 
       // GET
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/services/${queryParams.get('serviceId')}`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/services/${queryParams.get('serviceId')}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -243,7 +243,7 @@
       };
 
       // Call API endpoint
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/orders`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/accounts/${getCookie("accountId")}/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

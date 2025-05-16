@@ -194,7 +194,7 @@
     }
 
     // Make a fetch GET request when the page loads
-    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
+    fetchWithSession(`${window.CONFIG.BASE_URL}/accounts/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -228,7 +228,7 @@
       document.getElementById("cancel-btn-spinner").style.display = "inline-block"
 
       // Make a Put request when the page loads
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/accounts/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/accounts/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
         method: "PATCH"
       })
         .then((response) => {

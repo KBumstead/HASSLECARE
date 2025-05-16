@@ -1,3 +1,8 @@
+// setup config
+window.CONFIG = {
+  BASE_URL: 'https://hasslecare-api.bricoo.dev'
+};
+
 async function fetchWithSession(url, request) {
     return await fetch(url, {
         ...request,

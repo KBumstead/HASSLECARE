@@ -131,7 +131,7 @@
     }
 
     // Make a fetch GET request when the page loads
-    fetch(`https://alert-tourmaline-pantydraco.glitch.me/services/${queryParams.get('serviceId')}`, {
+    fetch(`${window.CONFIG.BASE_URL}/${queryParams.get('serviceId')}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

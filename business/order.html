@@ -223,7 +223,7 @@
     }
 
     // Make a fetch GET request when the page loads
-    fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
+    fetchWithSession(`${window.CONFIG.BASE_URL}/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
       method: "GET"
     })
       .then((response) => {
@@ -253,7 +253,7 @@
       document.getElementById("accept-btn-spinner").style.display = "inline-block"
 
       // Make a fetch Post request when the page loads   
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -284,7 +284,7 @@
       document.getElementById("ongoing-btn-spinner").style.display = "inline-block"
 
       // Make a fetch Post request when the page loads   
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -315,7 +315,7 @@
       document.getElementById("finish-btn-spinner").style.display = "inline-block"
 
       // Make a fetch Post request when the page loads   
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -346,7 +346,7 @@
       document.getElementById("cancel-btn-spinner").style.display = "inline-block"
 
       // Make a Put request when the page loads
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/business/${getCookie("accountId")}/orders/${queryParams.get('orderId')}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

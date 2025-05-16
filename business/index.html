@@ -174,7 +174,7 @@
         document.getElementById('description').textContent = data.description;
       }
 
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/business/${getCookie("accountId")}`, {
         method: "GET",
         header: {},
       })
@@ -216,7 +216,7 @@
         })
       }
 
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/business/${getCookie("accountId")}/services`, {
         method: "GET",
       })
         .then((response) => {
@@ -268,7 +268,7 @@
         })
       }
 
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/orders`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/business/${getCookie("accountId")}/orders`, {
         method: "GET",
       })
         .then((response) => {

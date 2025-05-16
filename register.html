@@ -145,7 +145,7 @@
       };
 
       // Send a fetch request to your desired URL
-      fetch("https://alert-tourmaline-pantydraco.glitch.me/accounts", {
+      fetch(`${window.CONFIG.BASE_URL}/accounts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

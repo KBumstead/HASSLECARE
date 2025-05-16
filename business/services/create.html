@@ -154,7 +154,7 @@
       };
 
       // Call API Endpoint
-      fetchWithSession(`https://alert-tourmaline-pantydraco.glitch.me/business/${getCookie("accountId")}/services`, {
+      fetchWithSession(`${window.CONFIG.BASE_URL}/business/${getCookie("accountId")}/services`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
