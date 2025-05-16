@@ -74,6 +74,9 @@
   </nav>
 
   <div class="container my-auto">
+    <div class="alert alert-warning mx-auto" role="alert" style="max-width: 40rem;">
+      Login is disabled for this demo.
+    </div>
     <div class="card mx-auto" style="max-width: 40rem;">
       <h5 class="card-header">
         Login
@@ -88,7 +91,7 @@
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" required>
           </div>
-          <button type="submit" class="btn btn-brand mb-3" id="login-btn">
+          <button type="submit" class="btn btn-brand mb-3" id="login-btn" disabled>
             Submit
             <span id="login-btn-spinner" class="spinner-border spinner-border-sm" role="status" style="display: none;">
               <span class="visually-hidden">Loading...</span>
