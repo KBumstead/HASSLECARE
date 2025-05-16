@@ -131,7 +131,7 @@
     }
 
     // Make a fetch GET request when the page loads
-    fetch(`${window.CONFIG.BASE_URL}/${queryParams.get('serviceId')}`, {
+    fetch(`${window.CONFIG.BASE_URL}/services/${queryParams.get('serviceId')}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
