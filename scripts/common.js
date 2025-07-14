@@ -1,6 +1,6 @@
 // setup config
 window.CONFIG = {
-  BASE_URL: 'https://hasslecare-api.bricoo.dev'
+  BASE_URL: 'https://api.hasslecare.brico.dev'
 };
 
 async function fetchWithSession(url, request) {
